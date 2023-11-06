@@ -1,0 +1,111 @@
+version: '3.9'
+
+services:
+  rococo-all-db:
+    container_name: rococo-all-db
+    image: postgres:15.1
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES="rococo-auth", "rococo-userdata"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+    networks:
+      - rococo-network
+    dns_search: .
+
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:7.3.2
+    expose:
+      - "2181"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+    networks:
+      - rococo-network
+
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:7.3.2
+    ports:
+      - "9092:9092"
+    depends_on:
+      zookeeper:
+        condition: service_started
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
+      - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
+    networks:
+      - rococo-network
+
+  auth.rococo.dc:
+    container_name: auth.rococo.dc
+    image: kulichenkom/rococo-auth:latest
+    ports:
+      - "9000:9000"
+    healthcheck:
+      test: "wget --spider http://auth.rococo.dc:9000/actuator/health || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: always
+    depends_on:
+      rococo-all-db:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+    networks:
+      - rococo-network
+    dns_search: .
+
+  api.rococo.dc:
+    container_name: api.rococo.dc
+    image: kulichenkom/rococo-api:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      auth.rococo.dc:
+        condition: service_healthy
+    networks:
+      - rococo-network
+    dns_search: .
+
+  userdata.rococo.dc:
+    container_name: userdata.rococo.dc
+    image: kulichenkom/rococo-userdata:latest
+    expose:
+      - "8087"
+    depends_on:
+      auth.rococo.dc:
+        condition: service_healthy
+    networks:
+      - rococo-network
+    dns_search: .
+
+  front.rococo.dc:
+    container_name: front.rococo.dc
+    image: kulichenkom/rococo-front
+    ports:
+      - "80:80"
+    depends_on:
+      api.rococo.dc:
+        condition: service_started
+    networks:
+      - rococo-network
+    dns_search: .
+
+networks:
+  rococo-network:
+    driver: bridge

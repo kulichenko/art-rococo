@@ -1,0 +1,49 @@
+import org.gradle.api.tasks.Exec
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.5'
+    id 'io.spring.dependency-management' version '1.1.3'
+    id 'com.palantir.docker' version '0.35.0'
+}
+
+group = 'guru.qa'
+version = '0.0.1'
+
+java {
+    sourceCompatibility = '17'
+}
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation "org.springframework.kafka:spring-kafka:${project.ext.springKafkaVersion}"
+    implementation "org.springframework.cloud:spring-cloud-starter-vault-config:${project.ext.springVaultVersion}"
+    implementation "org.flywaydb:flyway-core:${project.ext.flywayVersion}"
+    implementation "wsdl4j:wsdl4j:${project.ext.wsdl4jVersion}"
+    annotationProcessor "org.projectlombok:lombok:${project.ext.lombokVersion}"
+    compileOnly "org.projectlombok:lombok:${project.ext.lombokVersion}"
+    runtimeOnly "org.postgresql:postgresql:${project.ext.postgresDriverVersion}"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+docker {
+    dependsOn build
+    name "kulichenkom/rococo-artist:${project.version}"
+    tag 'latest', 'kulichenkom/rococo-artist:latest'
+    files bootJar.archiveFile
+    buildArgs([APP_VER: project.version, DOCKER: project.ext.dockerImage])
+    noCache true
+}
+
+tasks.register('dockerRmi', Exec) {
+    workingDir "${buildDir}"
+    commandLine 'bash', '-c', "docker rmi -f \$(docker images | grep 'rococo')\n"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

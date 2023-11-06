@@ -10,6 +10,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Mono;
 
 import java.net.URI;
 
@@ -41,9 +42,13 @@ public class RestUserDataClient implements UserDataClient {
                 .block();
     }
 
-    @Nonnull
     @Override
-    public UserJson editUser(@Nonnull UserJson user) {
-        return null;
+    public @Nonnull UserJson editUser(@Nonnull UserJson user) {
+        return webClient.patch()
+                .uri(userdataBaseUri + "/user")
+                .body(Mono.just(user), UserJson.class)
+                .retrieve()
+                .bodyToMono(UserJson.class)
+                .block();
     }
 }

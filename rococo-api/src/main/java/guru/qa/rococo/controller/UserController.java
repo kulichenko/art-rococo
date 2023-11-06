@@ -42,6 +42,7 @@ public class UserController {
     public UserJson editUser(@Valid @RequestBody UserJson user,
                                @AuthenticationPrincipal Jwt principal) {
         String username = principal.getClaim("sub");
+        LOG.info("Payload: {}", user.toString());
         return userDataClient.editUser(user.addUsername(username));
     }
 

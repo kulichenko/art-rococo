@@ -17,8 +17,6 @@ spring:
       idle-timeout: 10000
       max-lifetime: 1000
       auto-commit: true
-      username: postgres
-      password: secret
   flyway:
     enabled: true
     baseline-on-migrate: true
@@ -43,8 +41,7 @@ logging:
     root: INFO
     org.springframework.kafka: INFO
     org.springframework.web: INFO
-    org.springframework.ws: INFO
-#    org.springframework.boot.autoconfigure: DEBUG
+    org.springframework.boot.autoconfigure: DEBUG
 
 ---
 spring:
@@ -63,6 +60,8 @@ spring:
       auto-offset-reset: earliest
   datasource:
     url: 'jdbc:postgresql://rococo-all-db:5432/rococo-userdata'
+    username: postgres
+    password: secret
 rococo-userdata:
   base-uri: 'http://userdata.rococo.dc:8087'
 ---

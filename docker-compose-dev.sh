@@ -32,7 +32,7 @@ else
   echo "### Build images (front: $front) ###"
   bash ./gradlew clean build dockerTagLatest
   cd "$front" || exit
-  bash ./docker-build.sh dev
+  bash ./docker-build.sh dev push
 fi
 
 cd ../

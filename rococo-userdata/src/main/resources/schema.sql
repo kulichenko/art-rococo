@@ -15,13 +15,3 @@ create table if not exists "user"
 
 alter table "user"
     owner to postgres;
-
-create table if not exists countries
-(
-    id            UUID unique        not null default uuid_generate_v1() primary key,
-    country_name      varchar(50) unique not null,
-    country_code      varchar(3) unique not null
-);
-
-alter table countries
-    owner to postgres;

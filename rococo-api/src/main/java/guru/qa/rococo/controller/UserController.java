@@ -21,7 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 @RestController
 public class UserController {
 
@@ -34,15 +34,13 @@ public class UserController {
         this.userDataClient = userDataClient;
     }
 
-    @GetMapping("/user")
+    @GetMapping()
     public UserJson currentUser(@AuthenticationPrincipal Jwt principal) {
         String username = principal.getClaim("sub");
-        String id = principal.getId();
-        List<String> audience = principal.getAudience();
         return userDataClient.currentUser(username);
     }
 
-    @PatchMapping("/user")
+    @PatchMapping()
     public UserJson editUser(@Valid @RequestBody UserJson user,
                                @AuthenticationPrincipal Jwt principal) {
         String username = principal.getClaim("sub");

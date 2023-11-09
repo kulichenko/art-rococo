@@ -68,3 +68,25 @@ spring:
 rococo-userdata:
   base-uri: 'http://userdata.rococo.dc:8087'
 ---
+
+spring:
+  config:
+    activate:
+      on-profile: 'local'
+  autoconfigure:
+    exclude:
+      - 'org.springframework.cloud.vault.config.VaultAutoConfiguration'
+      - 'org.springframework.cloud.vault.config.VaultObservationAutoConfiguration'
+      - 'org.springframework.cloud.vault.config.VaultReactiveAutoConfiguration'
+  kafka:
+    bootstrap-servers: 'localhost:9092'
+    consumer:
+      group-id: 'userdata'
+      auto-offset-reset: earliest
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/rococo-userdata'
+    username: postgres
+    password: secret
+rococo-userdata:
+  base-uri: 'http://127.0.0.1:8087'
+---

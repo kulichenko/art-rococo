@@ -13,10 +13,19 @@ public class RococoApiServiceConfig {
     public static final int TEN_MB = 10 * 1024 * 1024;
 
     private final String rococoUserdataBaseUri;
+    private final String rococoArtistBaseUri;
+    private final String rococoMuseumBaseUri;
+    private final String rococoPicturesBaseUri;
 
     @Autowired
-    public RococoApiServiceConfig(@Value("${rococo-userdata.base-uri}") String rococoUserdataBaseUri) {
+    public RococoApiServiceConfig(@Value("${rococo-userdata.base-uri}") String rococoUserdataBaseUri,
+                                  @Value("${rococo-artist.base-uri}") String rococoArtistBaseUri,
+                                  @Value("${rococo-museum.base-uri}") String rococoMuseumBaseUri,
+                                  @Value("${rococo-pictures.base-uri}") String rococoPicturesBaseUri) {
         this.rococoUserdataBaseUri = rococoUserdataBaseUri;
+        this.rococoArtistBaseUri = rococoArtistBaseUri;
+        this.rococoMuseumBaseUri = rococoMuseumBaseUri;
+        this.rococoPicturesBaseUri = rococoPicturesBaseUri;
     }
 
     @Bean

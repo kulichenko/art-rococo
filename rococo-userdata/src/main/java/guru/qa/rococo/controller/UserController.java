@@ -28,7 +28,7 @@ public class UserController {
         return userDataService.getCurrentUser(username);
     }
 
-    @PatchMapping("/editSpend")
+    @PatchMapping("/user")
     public UserJson editUser (@RequestBody UserJson user) {
         return userDataService.editUser(user);
     }

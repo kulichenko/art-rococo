@@ -16,10 +16,8 @@ public record UserJson(
         String firstname,
         @JsonProperty("surname")
         String surname,
-        @JsonProperty("country")
-        String country,
-        @JsonProperty("photo")
-        String photo) {
+        @JsonProperty("avatar")
+        String avatar) {
 
 
     public static @Nonnull UserJson fromEntity(@Nonnull UserEntity entity) {
@@ -28,8 +26,7 @@ public record UserJson(
                 entity.getUsername(),
                 entity.getFirstname(),
                 entity.getSurname(),
-                entity.getCountry(),
-                entity.getPhoto() != null && entity.getPhoto().length > 0 ? new String(entity.getPhoto(), StandardCharsets.UTF_8) : null
+                entity.getAvatar() != null && entity.getAvatar().length > 0 ? new String(entity.getAvatar(), StandardCharsets.UTF_8) : null
         );
     }
 }

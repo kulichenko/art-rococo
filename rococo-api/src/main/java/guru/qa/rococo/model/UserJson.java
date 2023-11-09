@@ -17,11 +17,11 @@ public record UserJson(
         @JsonProperty("surname")
         @Size(max = 50, message = "Surname can`t be longer than 50 characters")
         String surname,
-        @JsonProperty("photo")
+        @JsonProperty("avatar")
         @Size(max = RococoApiServiceConfig.TEN_MB)
-        String photo)
+        String avatar)
 {
         public @Nonnull UserJson addUsername(@Nonnull String username) {
-                return new UserJson(id, firstname, surname, photo, username);
+            return new UserJson(id, firstname, surname, avatar, username);
         }
 }

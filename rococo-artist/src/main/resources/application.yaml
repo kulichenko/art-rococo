@@ -25,14 +25,15 @@ spring:
     locations: classpath:db/migration/rococo-artist
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         jdbc:
           lob:
             non_contextual_creation: true
+        format_sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: false
+    show-sql: true
     generate-ddl: true
     open-in-view: false
   sql:
@@ -67,4 +68,26 @@ spring:
     password: secret
 rococo-artist:
   base-uri: 'http://artist.rococo.dc:8086'
+
+---
+spring:
+  config:
+    activate:
+      on-profile: 'local'
+  autoconfigure:
+    exclude:
+      - 'org.springframework.cloud.vault.config.VaultAutoConfiguration'
+      - 'org.springframework.cloud.vault.config.VaultObservationAutoConfiguration'
+      - 'org.springframework.cloud.vault.config.VaultReactiveAutoConfiguration'
+  kafka:
+    bootstrap-servers: 'localhost:9092'
+    consumer:
+      group-id: 'artist'
+      auto-offset-reset: earliest
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/rococo-artist'
+    username: postgres
+    password: secret
+rococo-artist:
+  base-uri: 'http://127.0.0.1:8086'
 ---

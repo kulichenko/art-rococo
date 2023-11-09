@@ -39,4 +39,37 @@ rococo-front:
   base-uri: 'http://rococo.dc'
 rococo-userdata:
   base-uri: 'http://userdata.rococo.dc:8087'
+rococo-artist:
+  base-uri: 'http://artist.rococo.dc:8086'
+rococo-museum:
+  base-uri: 'http://museum.rococo.dc:8085'
+rococo-pictures:
+  base-uri: 'http://pictures.rococo.dc:8084'
+---
+
+spring:
+  config:
+    activate:
+      on-profile: 'local'
+  autoconfigure:
+    exclude:
+      - 'org.springframework.cloud.vault.config.VaultAutoConfiguration'
+      - 'org.springframework.cloud.vault.config.VaultObservationAutoConfiguration'
+      - 'org.springframework.cloud.vault.config.VaultReactiveAutoConfiguration'
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: 'http://127.0.0.1:9000'
+
+rococo-front:
+  base-uri: 'http://127.0.0.1:3000'
+rococo-userdata:
+  base-uri: 'http://127.0.0.1:8087'
+rococo-artist:
+  base-uri: 'http://127.0.0.1:8086'
+rococo-museum:
+  base-uri: 'http://127.0.0.1:8085'
+rococo-pictures:
+  base-uri: 'http://127.0.0.1:8084'
 ---

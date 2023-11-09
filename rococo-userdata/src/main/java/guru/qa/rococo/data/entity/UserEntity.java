@@ -23,16 +23,13 @@ public class UserEntity {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
-    private String country;
-
     @Column()
     private String firstname;
 
     @Column()
     private String surname;
 
-    @Column(name = "photo", columnDefinition = "bytea")
-    private byte[] photo;
+    @Column(name = "avatar", columnDefinition = "bytea")
+    private byte[] avatar;
 
 }

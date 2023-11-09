@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 
 @RequestMapping("/api")
 @RestController
@@ -35,6 +37,8 @@ public class UserController {
     @GetMapping("/user")
     public UserJson currentUser(@AuthenticationPrincipal Jwt principal) {
         String username = principal.getClaim("sub");
+        String id = principal.getId();
+        List<String> audience = principal.getAudience();
         return userDataClient.currentUser(username);
     }
 
@@ -43,7 +47,10 @@ public class UserController {
                                @AuthenticationPrincipal Jwt principal) {
         String username = principal.getClaim("sub");
         LOG.info("Payload: {}", user.toString());
-        return userDataClient.editUser(user.addUsername(username));
+        UserJson userJson = user.addUsername(username);
+        LOG.info("UserJson to webclient: {}", userJson);
+
+        return userDataClient.editUser(userJson);
     }
 
 }

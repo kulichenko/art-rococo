@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.naming.NameNotFoundException;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -52,7 +53,6 @@ public class UserDataService {
         LOG.info("### Kafka consumer record: " + cr.toString());
         UserEntity userDataEntity = new UserEntity();
         userDataEntity.setUsername(user.username());
-        userDataEntity.setCountry(DEFAULT_USER_COUNTRY);
         UserEntity userEntity = userRepository.save(userDataEntity);
         LOG.info(String.format(
                 "### User '%s' successfully saved to database with id: %s",
@@ -71,8 +71,7 @@ public class UserDataService {
             UserEntity userEntity = userForEdit.get();
             userEntity.setFirstname(user.firstname());
             userEntity.setSurname(user.surname());
-            userEntity.setPhoto(user.photo().getBytes());
-            userEntity.setCountry(user.country());
+            userEntity.setAvatar(user.avatar() != null ? user.avatar().getBytes(StandardCharsets.UTF_8) : null);
             return UserJson.fromEntity(userRepository.save(userEntity));
         }
     }

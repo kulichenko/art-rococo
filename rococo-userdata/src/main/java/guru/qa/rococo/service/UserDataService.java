@@ -35,8 +35,6 @@ public class UserDataService {
         return UserJson.fromEntity(getUser(username));
     }
 
-    private static final String DEFAULT_USER_COUNTRY = "Russia";
-
     @Nonnull
     UserEntity getUser(@Nonnull String username) throws NameNotFoundException {
         UserEntity user = userRepository.findByUsername(username);
@@ -70,7 +68,7 @@ public class UserDataService {
         } else {
             UserEntity userEntity = userForEdit.get();
             userEntity.setFirstname(user.firstname());
-            userEntity.setSurname(user.surname());
+            userEntity.setLastname(user.lastname());
             userEntity.setAvatar(user.avatar() != null ? user.avatar().getBytes(StandardCharsets.UTF_8) : null);
             return UserJson.fromEntity(userRepository.save(userEntity));
         }

@@ -14,14 +14,14 @@ public record UserJson(
         @JsonProperty("firstname")
         @Size(max = 30, message = "First name can`t be longer than 30 characters")
         String firstname,
-        @JsonProperty("surname")
+        @JsonProperty("lastname")
         @Size(max = 50, message = "Surname can`t be longer than 50 characters")
-        String surname,
+        String lastname,
         @JsonProperty("avatar")
         @Size(max = RococoApiServiceConfig.TEN_MB)
         String avatar)
 {
         public @Nonnull UserJson addUsername(@Nonnull String username) {
-            return new UserJson(id, firstname, surname, avatar, username);
+                return new UserJson(id, username, firstname, lastname, avatar);
         }
 }

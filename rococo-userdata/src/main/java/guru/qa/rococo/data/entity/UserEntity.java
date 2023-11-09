@@ -27,7 +27,7 @@ public class UserEntity {
     private String firstname;
 
     @Column()
-    private String surname;
+    private String lastname;
 
     @Column(name = "avatar", columnDefinition = "bytea")
     private byte[] avatar;

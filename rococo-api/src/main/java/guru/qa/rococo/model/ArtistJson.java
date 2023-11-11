@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 
 import java.util.UUID;
 
+import static guru.qa.rococo.config.RococoApiServiceConfig.TEN_MB;
+
 
 public record ArtistJson(
         @JsonProperty("id") UUID id,
@@ -13,7 +15,7 @@ public record ArtistJson(
         @JsonProperty("biography")
         String biography,
         @JsonProperty("photo")
-        @Size(max = RococoApiServiceConfig.TEN_MB)
-        byte[] photo) {
+        @Size(max = TEN_MB)
+        String photo) {
 
 }

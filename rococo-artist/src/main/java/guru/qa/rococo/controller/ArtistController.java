@@ -11,35 +11,35 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/artist")
 @RequiredArgsConstructor
 public class ArtistController {
     private final ArtistService service;
 
-    @GetMapping("/artist")
-    public Page<ArtistEntity> findAll(@RequestParam(required = false, defaultValue = "5") Integer size,
-                                      @RequestParam(required = false, defaultValue = "0") Integer page) {
-        return service.findAll(PageRequest.of(page, size));
+    @GetMapping
+    public List<ArtistJson> findAll() {
+        return service.findAll();
     }
 
-    @GetMapping("/artist/{id}")
-    public Page<ArtistEntity> findById(@PathVariable UUID id,
-                                       @RequestParam(required = false, defaultValue = "5") Integer size,
-                                       @RequestParam(required = false, defaultValue = "0") Integer page) {
-        return service.findById(id, PageRequest.of(page, size));
+    @GetMapping("/{id}")
+    public ArtistJson findById(@PathVariable UUID id) {
+        return service.findById(id);
     }
 
-    @PatchMapping("/artist")
+    @PatchMapping
     public ArtistJson editArtist(@RequestBody ArtistJson artistJson) {
         return service.editArtist(artistJson);
     }
 
-    @PostMapping("/artist")
+    @PostMapping
     public ArtistJson createArtist(@RequestBody ArtistJson artistJson) {
         return service.createArtist(artistJson);
     }

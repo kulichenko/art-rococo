@@ -38,10 +38,12 @@ public class SecurityConfigLocal {
                         customizer.requestMatchers(
                                         antMatcher("/session"),
                                         antMatcher("/actuator/health"),
-                                        antMatcher("/graphiql/**"),
-                                        antMatcher("/graphql/**"),
-                                        antMatcher("/favicon.ico"),
-                                        antMatcher(HttpMethod.POST, "/graphql")
+                                        antMatcher(HttpMethod.GET, "/api/artist"),
+                                        antMatcher(HttpMethod.GET, "/api/artist/**"),
+                                        antMatcher(HttpMethod.GET, "/api/museum"),
+                                        antMatcher(HttpMethod.GET, "/api/geo"),
+                                        antMatcher(HttpMethod.GET, "/api/pictures"),
+                                        antMatcher("/favicon.ico")
                                 ).permitAll()
                                 .anyRequest()
                                 .authenticated()

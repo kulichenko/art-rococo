@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,7 +35,12 @@ public class SecurityConfigMain {
         http.authorizeHttpRequests(customizer ->
                 customizer.requestMatchers(
                                 antMatcher("/session"),
-                                antMatcher("/actuator/health"))
+                                antMatcher("/actuator/health"),
+                                antMatcher(HttpMethod.GET, "/api/artist"),
+                                antMatcher(HttpMethod.GET, "/api/artist/**"),
+                                antMatcher(HttpMethod.GET, "/api/museum"),
+                                antMatcher(HttpMethod.GET, "/api/geo"),
+                                antMatcher(HttpMethod.GET, "/api/pictures"))
                         .permitAll()
                         .anyRequest()
                         .authenticated()

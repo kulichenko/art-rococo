@@ -86,7 +86,7 @@ public class RococoAuthServiceConfig {
                 .clientSettings(ClientSettings.builder()
                         .requireAuthorizationConsent(true).build())
                 .tokenSettings(TokenSettings.builder()
-                        .accessTokenTimeToLive(Duration.ofHours(1))
+                        .accessTokenTimeToLive(Duration.ofHours(10))
                         .refreshTokenTimeToLive(Duration.ofHours(10))
                         .build())
                 .build();

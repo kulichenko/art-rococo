@@ -23,7 +23,7 @@ public class PageResponse<T> {
     private Integer numberOfElements;
     private boolean empty;
 
-
+    @Data
     @Builder
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class Paging {

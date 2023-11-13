@@ -41,8 +41,10 @@ public class SecurityConfigLocal {
                                         antMatcher(HttpMethod.GET, "/api/artist"),
                                         antMatcher(HttpMethod.GET, "/api/artist/**"),
                                         antMatcher(HttpMethod.GET, "/api/museum"),
+                                        antMatcher(HttpMethod.GET, "/api/museum/**"),
                                         antMatcher(HttpMethod.GET, "/api/geo"),
-                                        antMatcher(HttpMethod.GET, "/api/pictures"),
+                                        antMatcher(HttpMethod.GET, "/api/painting"),
+                                        antMatcher(HttpMethod.GET, "/api/painting/**"),
                                         antMatcher("/favicon.ico")
                                 ).permitAll()
                                 .anyRequest()

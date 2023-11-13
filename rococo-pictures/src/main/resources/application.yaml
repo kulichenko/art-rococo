@@ -38,10 +38,11 @@ spring:
 
 logging:
   level:
-    root: INFO
-    org.springframework.kafka: INFO
-    org.springframework.web: INFO
+    root: DEBUG
+    org.springframework.kafka: DEBUG
+    org.springframework.web: DEBUG
     org.springframework.boot.autoconfigure: DEBUG
+    org.springframework.jdbc.datasource: DEBUG
 
 ---
 spring:
@@ -64,4 +65,26 @@ spring:
     password: secret
 rococo-pictures:
   base-uri: 'http://pictures.rococo.dc:8084'
+---
+
+spring:
+  config:
+    activate:
+      on-profile: 'local'
+  autoconfigure:
+    exclude:
+      - 'org.springframework.cloud.vault.config.VaultAutoConfiguration'
+      - 'org.springframework.cloud.vault.config.VaultObservationAutoConfiguration'
+      - 'org.springframework.cloud.vault.config.VaultReactiveAutoConfiguration'
+  kafka:
+    bootstrap-servers: 'localhost:9092'
+    consumer:
+      group-id: 'pictures'
+      auto-offset-reset: earliest
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/rococo-pictures'
+    username: postgres
+    password: secret
+rococo-pictures:
+  base-uri: 'http://127.0.0.1:8084'
 ---

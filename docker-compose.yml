@@ -5,7 +5,7 @@ services:
     container_name: rococo-all-db
     image: postgres:15.1
     environment:
-      - POSTGRES_MULTIPLE_DATABASES="rococo-auth", "rococo-userdata", "rococo-artist", "rococo-museum", "rococo-pictures"
+      - POSTGRES_MULTIPLE_DATABASES="rococo-auth", "rococo-userdata", "rococo-artist", "rococo-museum", "rococo-pictures", "rococo-geo"
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=secret
     ports:
@@ -99,6 +99,30 @@ services:
     image: kulichenkom/rococo-artist:latest
     ports:
       - "8086:8086"
+    depends_on:
+      auth.rococo.dc:
+        condition: service_healthy
+    networks:
+      - rococo-network
+    dns_search: .
+
+  museum.rococo.dc:
+    container_name: museum.rococo.dc
+    image: kulichenkom/rococo-museum:latest
+    ports:
+      - "8084:8084"
+    depends_on:
+      auth.rococo.dc:
+        condition: service_healthy
+    networks:
+      - rococo-network
+    dns_search: .
+
+  pictures.rococo.dc:
+    container_name: pictures.rococo.dc
+    image: kulichenkom/rococo-pictures:latest
+    ports:
+      - "8084:8084"
     depends_on:
       auth.rococo.dc:
         condition: service_healthy

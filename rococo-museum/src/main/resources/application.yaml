@@ -65,3 +65,25 @@ spring:
 rococo-museum:
   base-uri: 'http://museum.rococo.dc:8085'
 ---
+
+spring:
+  config:
+    activate:
+      on-profile: 'local'
+  autoconfigure:
+    exclude:
+      - 'org.springframework.cloud.vault.config.VaultAutoConfiguration'
+      - 'org.springframework.cloud.vault.config.VaultObservationAutoConfiguration'
+      - 'org.springframework.cloud.vault.config.VaultReactiveAutoConfiguration'
+  kafka:
+    bootstrap-servers: 'localhost:9092'
+    consumer:
+      group-id: 'museum'
+      auto-offset-reset: earliest
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/rococo-museum'
+    username: postgres
+    password: secret
+rococo-museum:
+  base-uri: 'http://127.0.0.1:8085'
+---

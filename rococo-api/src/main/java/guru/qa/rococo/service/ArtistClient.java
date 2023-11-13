@@ -37,9 +37,6 @@ public class ArtistClient {
     }
 
     public Page<ArtistJson> allArtists(PageRequest pageRequest) {
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("page", String.valueOf(pageRequest.getPageNumber()));
-        params.add("size", String.valueOf(pageRequest.getPageSize()));
         URI uri = UriComponentsBuilder.fromHttpUrl(artistBaseUri + "/artist").build().toUri();
 
         return webClient.get()

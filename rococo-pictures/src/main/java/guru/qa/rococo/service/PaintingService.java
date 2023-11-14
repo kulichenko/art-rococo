@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -55,5 +56,35 @@ public class PaintingService {
     List<PaintingJson> findByAuthor(UUID id) {
         List<PaintingEntity> entities = repository.findByArtistId(id);
         return entities.stream().map(PaintingJson::fromEntity).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public @Nonnull
+    PaintingJson createPainting(@Nonnull PaintingJson paintingJson) {
+        PaintingEntity paintingEntity = new PaintingEntity();
+        paintingEntity.setId(paintingJson.id());
+        paintingEntity.setTitle(paintingJson.title());
+        paintingEntity.setDescription(paintingJson.description());
+        paintingEntity.setContent(paintingJson.content() != null ? paintingJson.content().getBytes(StandardCharsets.UTF_8) : null);
+        paintingEntity.setMuseumId(paintingJson.museumId());
+        paintingEntity.setArtistId(paintingJson.artistId());
+        return PaintingJson.fromEntity(repository.save(paintingEntity));
+    }
+
+    @Transactional
+    public @Nonnull
+    PaintingJson editPainting(@Nonnull PaintingJson paintingJson) {
+        var paintingForEdit = repository.findById(paintingJson.id());
+        if (paintingForEdit.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find Painting by given id: {}" + paintingJson.id());
+        } else {
+            PaintingEntity paintingEntity = paintingForEdit.get();
+            paintingEntity.setTitle(paintingJson.title());
+            paintingEntity.setDescription(paintingJson.description());
+            paintingEntity.setContent(paintingJson.content() != null ? paintingJson.content().getBytes(StandardCharsets.UTF_8) : null);
+            paintingEntity.setMuseumId(paintingJson.museumId());
+            paintingEntity.setArtistId(paintingJson.artistId());
+            return PaintingJson.fromEntity(repository.save(paintingEntity));
+        }
     }
 }

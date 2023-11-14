@@ -16,6 +16,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -92,26 +93,26 @@ public class PaintingClient {
                 .block();
     }
 
-//
-//    public PaintingJson editArtist(PaintingJson picturesToEdit) {
-//        URI uri = UriComponentsBuilder.fromHttpUrl(picturesBaseUri + "/pictures").build().toUri();
-//        return webClient.patch()
-//                .uri(uri)
-//                .body(Mono.just(picturesToEdit), PaintingJson.class)
-//                .retrieve()
-//                .bodyToMono(PaintingJson.class)
-//                .block();
-//    }
-//
-//    public PaintingJson createArtist(PaintingJson picturesToEdit) {
-//        URI uri = UriComponentsBuilder.fromHttpUrl(picturesBaseUri + "/pictures").build().toUri();
-//        return webClient.post()
-//                .uri(uri)
-//                .body(Mono.just(picturesToEdit), PaintingJson.class)
-//                .retrieve()
-//                .bodyToMono(PaintingJson.class)
-//                .block();
-//    }
+
+    public PaintingJson editPaint(PaintingJson paintingJson) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(picturesBaseUri + "/painting").build().toUri();
+        return webClient.patch()
+                .uri(uri)
+                .body(Mono.just(paintingJson), PaintingJson.class)
+                .retrieve()
+                .bodyToMono(PaintingJson.class)
+                .block();
+    }
+
+    public PaintingJson createPaint(PaintingJson paintingJson) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(picturesBaseUri + "/painting").build().toUri();
+        return webClient.post()
+                .uri(uri)
+                .body(Mono.just(paintingJson), PaintingJson.class)
+                .retrieve()
+                .bodyToMono(PaintingJson.class)
+                .block();
+    }
 
     private Page<PaintingJson> createPage(List<PaintingJson> pictures, Pageable pageable) {
         int totalElements = pictures.size();

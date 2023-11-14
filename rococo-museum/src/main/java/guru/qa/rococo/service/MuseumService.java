@@ -59,7 +59,7 @@ public class MuseumService {
         museum.setTitle(museumJson.title());
         museum.setDescription(museumJson.description());
         museum.setPhoto(museumJson.photo() != null ? museumJson.photo().getBytes(StandardCharsets.UTF_8) : null);
-        museum.setCity(museum.getCity());
+        museum.setCity(museumJson.city());
         museum.setCountryId(museumJson.countryId());
         return MuseumJson.fromEntity(repository.save(museum));
     }
@@ -75,7 +75,7 @@ public class MuseumService {
             museum.setTitle(museumJson.title());
             museum.setDescription(museumJson.description());
             museum.setPhoto(museumJson.photo() != null ? museumJson.photo().getBytes(StandardCharsets.UTF_8) : null);
-            museum.setCity(museum.getCity());
+            museum.setCity(museumJson.city());
             museum.setCountryId(museumJson.countryId());
             return MuseumJson.fromEntity(repository.save(museum));
         }

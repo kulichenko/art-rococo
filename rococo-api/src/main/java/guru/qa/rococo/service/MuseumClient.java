@@ -90,20 +90,19 @@ public class MuseumClient {
 //                .block();
 //    }
 
-    //
-//    public MuseumJson editArtist(MuseumJson museumToEdit) {
-//        URI uri = UriComponentsBuilder.fromHttpUrl(museumBaseUri + "/museum").build().toUri();
-//        return webClient.patch()
-//                .uri(uri)
-//                .body(Mono.just(museumToEdit), MuseumJson.class)
-//                .retrieve()
-//                .bodyToMono(MuseumJson.class)
-//                .block();
-//    }
-//
-    public MuseumJson createMuseum(MuseumJson museumToEdit) {
+    public MuseumJson createMuseum(MuseumJson museumJson) {
         URI uri = UriComponentsBuilder.fromHttpUrl(museumBaseUri + "/museum").build().toUri();
         return webClient.post()
+                .uri(uri)
+                .body(Mono.just(museumJson), MuseumJson.class)
+                .retrieve()
+                .bodyToMono(MuseumJson.class)
+                .block();
+    }
+
+    public MuseumJson editMuseum(MuseumJson museumToEdit) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(museumBaseUri + "/museum").build().toUri();
+        return webClient.patch()
                 .uri(uri)
                 .body(Mono.just(museumToEdit), MuseumJson.class)
                 .retrieve()

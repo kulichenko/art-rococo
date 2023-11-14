@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ public class GeoService {
     public @Nonnull
     List<GeoJson> findByIds(@Nonnull List<String> ids) {
 
-        var entities = geoRepository.findByIdIn(ids.stream().map(UUID::fromString).toList());
+        var entities = geoRepository.findByIdIn(ids.stream().filter(Objects::nonNull).map(UUID::fromString).toList());
         if (entities.isEmpty()) {
             throw new RuntimeException("Country was not found by id");
         } else {

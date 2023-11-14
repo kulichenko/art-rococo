@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +34,7 @@ public class MuseumController {
             @RequestParam(required = false, defaultValue = "5") Integer size,
             @RequestParam(required = false, defaultValue = "0") Integer page) {
         var museums = museumClient.allMuseums(PageRequest.of(page, size));
-        return mapper.mapGeoToMuseum(museums);
+        return mapper.putGeoObjectsToMuseums(museums);
     }
 
 
@@ -41,37 +42,27 @@ public class MuseumController {
     public Page<MuseumJson> findByTitle(@RequestParam("title") String title,
                                         @RequestParam(required = false, defaultValue = "5") Integer size,
                                         @RequestParam(required = false, defaultValue = "0") Integer page) {
-        return museumClient.findByTitle(title, PageRequest.of(page, size));
+        var museums = museumClient.findByTitle(title, PageRequest.of(page, size));
+        return mapper.putGeoObjectsToMuseums(museums);
     }
 
     @GetMapping("/{id}")
     public MuseumJson findById(@PathVariable("id") String id) {
-        return museumClient.findById(id);
+        var museum = museumClient.findById(id);
+        return mapper.putGeoObjectToMuseum(museum);
     }
 
-//    @GetMapping("/author/{id}")
-//    public Page<MuseumJson> findByAuthor(@PathVariable("id") String id,
-//                                           @RequestParam(required = false, defaultValue = "5") Integer size,
-//                                           @RequestParam(required = false, defaultValue = "0") Integer page) {
-//        return museumClient.findByAuthor(id, PageRequest.of(page, size));
-//    }
+    @PostMapping
+    public MuseumJson createMuseum(@RequestBody MuseumJson museumJson) {
+        var museum = mapper.addCountryIdAndCityToMuseumFromGeo(museumJson);
+        var result = museumClient.createMuseum(museum);
+        return mapper.putGeoObjectToMuseum(result);
+    }
 
-
-//
-//
-//    @GetMapping("/{id}")
-//    public MuseumJson findById(@PathVariable String id) {
-//        return paintingClient.findById(id);
-//    }
-//
-//    @PatchMapping
-//    public MuseumJson editArtist(@RequestBody MuseumJson artist) {
-//
-//        return paintingClient.editArtist(artist);
-//    }
-//
-@PostMapping
-public MuseumJson createMuseum(@RequestBody MuseumJson museumJson) {
-    return museumClient.createMuseum(museumJson);
-}
+    @PatchMapping
+    public MuseumJson editMuseum(@RequestBody MuseumJson museumJson) {
+        var museum = mapper.addCountryIdAndCityToMuseumFromGeo(museumJson);
+        var result = museumClient.editMuseum(museum);
+        return mapper.putGeoObjectToMuseum(result);
+    }
 }

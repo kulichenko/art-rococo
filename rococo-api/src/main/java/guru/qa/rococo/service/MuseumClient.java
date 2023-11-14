@@ -16,8 +16,10 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Component
@@ -60,7 +62,12 @@ public class MuseumClient {
     public Page<MuseumJson> findByTitle(String title, PageRequest pageRequest) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("title", title);
-        URI uri = UriComponentsBuilder.fromHttpUrl(museumBaseUri + "/museum").queryParams(params).build().toUri();
+        URI uri = UriComponentsBuilder
+                .fromHttpUrl(museumBaseUri + "/museum")
+                .queryParams(params)
+                .encode(StandardCharsets.UTF_8)
+                .build()
+                .toUri();
 
         return webClient.get()
                 .uri(uri)
@@ -83,7 +90,7 @@ public class MuseumClient {
 //                .block();
 //    }
 
-//
+    //
 //    public MuseumJson editArtist(MuseumJson museumToEdit) {
 //        URI uri = UriComponentsBuilder.fromHttpUrl(museumBaseUri + "/museum").build().toUri();
 //        return webClient.patch()
@@ -94,15 +101,15 @@ public class MuseumClient {
 //                .block();
 //    }
 //
-//    public MuseumJson createArtist(MuseumJson museumToEdit) {
-//        URI uri = UriComponentsBuilder.fromHttpUrl(museumBaseUri + "/museum").build().toUri();
-//        return webClient.post()
-//                .uri(uri)
-//                .body(Mono.just(museumToEdit), MuseumJson.class)
-//                .retrieve()
-//                .bodyToMono(MuseumJson.class)
-//                .block();
-//    }
+    public MuseumJson createMuseum(MuseumJson museumToEdit) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(museumBaseUri + "/museum").build().toUri();
+        return webClient.post()
+                .uri(uri)
+                .body(Mono.just(museumToEdit), MuseumJson.class)
+                .retrieve()
+                .bodyToMono(MuseumJson.class)
+                .block();
+    }
 
     private Page<MuseumJson> createPage(List<MuseumJson> museum, Pageable pageable) {
         int totalElements = museum.size();

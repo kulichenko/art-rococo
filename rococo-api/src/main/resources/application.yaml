@@ -45,6 +45,8 @@ rococo-museum:
   base-uri: 'http://museum.rococo.dc:8085'
 rococo-pictures:
   base-uri: 'http://pictures.rococo.dc:8084'
+rococo-geo:
+  base-uri: 'http://geo.rococo.dc:8083'
 ---
 
 spring:
@@ -72,4 +74,6 @@ rococo-museum:
   base-uri: 'http://127.0.0.1:8085'
 rococo-pictures:
   base-uri: 'http://127.0.0.1:8084'
+rococo-geo:
+  base-uri: 'http://127.0.0.1:8083'
 ---

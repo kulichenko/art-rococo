@@ -36,12 +36,10 @@ public class SecurityConfigMain {
                 customizer.requestMatchers(
                                 antMatcher("/session"),
                                 antMatcher("/actuator/health"),
-                                antMatcher(HttpMethod.GET, "/api/artist"),
                                 antMatcher(HttpMethod.GET, "/api/artist/**"),
-                                antMatcher(HttpMethod.GET, "/api/museum"),
                                 antMatcher(HttpMethod.GET, "/api/museum/**"),
                                 antMatcher(HttpMethod.GET, "/api/geo"),
-                                antMatcher(HttpMethod.GET, "/api/painting"),
+                                antMatcher(HttpMethod.POST, "/api/geo/findByIds"),
                                 antMatcher(HttpMethod.GET, "/api/painting/**"))
                         .permitAll()
                         .anyRequest()

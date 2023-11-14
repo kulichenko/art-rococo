@@ -4,7 +4,10 @@ import guru.qa.rococo.model.MuseumJson;
 import guru.qa.rococo.service.MuseumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,9 +36,14 @@ public class MuseumController {
     public MuseumJson findById(@PathVariable("id") UUID id) {
         return service.findById(id);
     }
-//
-//    @GetMapping("/author/{id}")
-//    public List<MuseumJson> findByAuthor(@PathVariable("id") UUID id) {
-//        return service.findByAuthor(id);
-//    }
+
+    @PostMapping
+    public MuseumJson createMuseum(@RequestBody MuseumJson museumJson) {
+        return service.createMuseum(museumJson);
+    }
+
+    @PatchMapping
+    public MuseumJson editMuseum(@RequestBody MuseumJson museumJson) {
+        return service.editMuseum(museumJson);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -49,11 +50,34 @@ public class MuseumService {
             return MuseumJson.fromEntity(entity.get());
         }
     }
-//
-//    @Transactional(readOnly = true)
-//    public @Nonnull
-//    List<MuseumJson> findByAuthor(UUID id) {
-//        List<MuseumEntity> entities = repository.findByArtistId(id);
-//        return entities.stream().map(MuseumJson::fromEntity).collect(Collectors.toList());
-//    }
+
+    @Transactional
+    public @Nonnull
+    MuseumJson createMuseum(@Nonnull MuseumJson museumJson) {
+        MuseumEntity museum = new MuseumEntity();
+        museum.setId(museumJson.id());
+        museum.setTitle(museumJson.title());
+        museum.setDescription(museumJson.description());
+        museum.setPhoto(museumJson.photo() != null ? museumJson.photo().getBytes(StandardCharsets.UTF_8) : null);
+        museum.setCity(museum.getCity());
+        museum.setCountryId(museumJson.countryId());
+        return MuseumJson.fromEntity(repository.save(museum));
+    }
+
+    @Transactional
+    public @Nonnull
+    MuseumJson editMuseum(@Nonnull MuseumJson museumJson) {
+        var museumForEdit = repository.findById(museumJson.id());
+        if (museumForEdit.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find museum by given id: {}" + museumJson.id());
+        } else {
+            MuseumEntity museum = museumForEdit.get();
+            museum.setTitle(museumJson.title());
+            museum.setDescription(museumJson.description());
+            museum.setPhoto(museumJson.photo() != null ? museumJson.photo().getBytes(StandardCharsets.UTF_8) : null);
+            museum.setCity(museum.getCity());
+            museum.setCountryId(museumJson.countryId());
+            return MuseumJson.fromEntity(repository.save(museum));
+        }
+    }
 }

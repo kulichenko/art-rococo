@@ -1,13 +1,13 @@
 <script lang="ts">
-    import { getModalStore } from "@skeletonlabs/skeleton";
+    import {getModalStore} from "@skeletonlabs/skeleton";
     import FormWrapper from "../../FormWrapper.svelte";
     import ModalButtonGroup from "../../ModalButtonGroup.svelte";
     import Input from "../../formElements/Input.svelte";
     import Select from "../../formElements/Select.svelte";
     import ImageInput from "../../formElements/ImageInput.svelte";
-    import { apiClient } from "$lib/helpers/apiClient";
+    import {apiClient} from "$lib/helpers/apiClient";
     import Textarea from "../../formElements/Textarea.svelte";
-    import { blobToBase64 } from "$lib/helpers/imageUtils";
+    import {blobToBase64} from "$lib/helpers/imageUtils";
     import {validateImage} from "$lib/helpers/validate";
     import type {PaintingType} from "$lib/types/Painting";
     import {paintingFormErrorStore} from "$lib/components/forms/painting/painting-form.error.store.js";
@@ -54,7 +54,7 @@
                 description,
                 content,
                 artist: {
-                    id: painting?.artist?.id ?? authorId,
+                    id: authorId,
                 },
                 museum: {
                     id: museumId,

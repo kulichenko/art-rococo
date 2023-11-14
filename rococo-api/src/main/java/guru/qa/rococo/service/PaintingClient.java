@@ -16,9 +16,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
-import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Component
@@ -61,7 +61,11 @@ public class PaintingClient {
     public Page<PaintingJson> findByTitle(String title, PageRequest pageRequest) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("title", title);
-        URI uri = UriComponentsBuilder.fromHttpUrl(picturesBaseUri + "/painting").queryParams(params).build().toUri();
+        URI uri = UriComponentsBuilder
+                .fromHttpUrl(picturesBaseUri + "/painting")
+                .queryParams(params)
+                .encode(StandardCharsets.UTF_8)
+                .build().toUri();
 
         return webClient.get()
                 .uri(uri)
@@ -73,7 +77,11 @@ public class PaintingClient {
     }
 
     public Page<PaintingJson> findByAuthor(String authorId, PageRequest pageRequest) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(picturesBaseUri + "/painting/author/" + authorId).build().toUri();
+        URI uri = UriComponentsBuilder
+                .fromHttpUrl(picturesBaseUri + "/painting/author/" + authorId)
+                .encode(StandardCharsets.UTF_8)
+                .build()
+                .toUri();
 
         return webClient.get()
                 .uri(uri)

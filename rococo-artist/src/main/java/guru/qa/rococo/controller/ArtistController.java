@@ -1,11 +1,8 @@
 package guru.qa.rococo.controller;
 
-import guru.qa.rococo.data.ArtistEntity;
 import guru.qa.rococo.model.ArtistJson;
 import guru.qa.rococo.service.ArtistService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -33,6 +30,11 @@ public class ArtistController {
     @GetMapping("/{id}")
     public ArtistJson findById(@PathVariable UUID id) {
         return service.findById(id);
+    }
+
+    @GetMapping(params = "name")
+    public List<ArtistJson> findByTitle(@RequestParam("name") String name) {
+        return service.findByName(name);
     }
 
     @PatchMapping

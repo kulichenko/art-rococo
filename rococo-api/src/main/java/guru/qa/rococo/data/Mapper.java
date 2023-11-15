@@ -81,6 +81,12 @@ public class Mapper {
         return museumJson;
     }
 
+    /**
+     * Add Museum object an Artist object to each Painting of Page
+     *
+     * @param paintingJsonPage
+     * @return Page
+     */
     public Page<PaintingJson> putMuseumsAndArtistsToPaintings(Page<PaintingJson> paintingJsonPage) {
         var museumJsons = paintingJsonPage
                 .getContent()
@@ -119,12 +125,23 @@ public class Mapper {
         return paintingJsonPage;
     }
 
+    /**
+     * Add museum id and artist id from Museum and Artist objects to single PaintingJson
+     *
+     * @param paintingJson
+     * @return PaintingJson
+     */
     public PaintingJson setMuseumIdAndArtistIdToPainting(PaintingJson paintingJson) {
         Optional.ofNullable(paintingJson.getMuseum().getId()).ifPresent(paintingJson::setMuseumId);
         Optional.ofNullable(paintingJson.getArtist().getId()).ifPresent(paintingJson::setArtistId);
         return paintingJson;
     }
 
+    /**
+     * Add Museum object an Artist object to PaintingJson
+     * @param paintingJson
+     * @return PaintingJson
+     */
     public PaintingJson putMuseumAndArtistObjectsToPainting(PaintingJson paintingJson) {
         var museum = putGeoObjectToMuseum(museumClient.findById(String.valueOf(paintingJson.getMuseumId())));
         var artist = artistClient.findById(String.valueOf(paintingJson.getArtistId()));

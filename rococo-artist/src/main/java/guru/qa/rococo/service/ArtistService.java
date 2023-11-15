@@ -46,6 +46,20 @@ public class ArtistService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public @Nonnull
+    List<ArtistJson> findByName(String name) {
+        var artists = repository.findByNameContaining(name)
+                .stream()
+                .map(ArtistJson::fromEntity)
+                .collect(Collectors.toList());
+        if (artists.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Can`t find artists by name: {}" + name);
+        } else {
+            return artists;
+        }
+    }
+
     @Transactional
     public @Nonnull
     ArtistJson editArtist(@Nonnull ArtistJson artistJson) {

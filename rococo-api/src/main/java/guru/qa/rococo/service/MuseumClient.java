@@ -78,18 +78,6 @@ public class MuseumClient {
                 .block();
     }
 
-//    public Page<MuseumJson> findByAuthor(String authorId, PageRequest pageRequest) {
-//        URI uri = UriComponentsBuilder.fromHttpUrl(museumBaseUri + "/museum/author/" + authorId).build().toUri();
-//
-//        return webClient.get()
-//                .uri(uri)
-//                .retrieve()
-//                .bodyToFlux(MuseumJson.class)
-//                .collectList()
-//                .map(a -> createPage(a, pageRequest))
-//                .block();
-//    }
-
     public MuseumJson createMuseum(MuseumJson museumJson) {
         URI uri = UriComponentsBuilder.fromHttpUrl(museumBaseUri + "/museum").build().toUri();
         return webClient.post()

@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -20,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Component
@@ -55,6 +55,25 @@ public class ArtistClient {
                 .uri(uri)
                 .retrieve()
                 .bodyToMono(ArtistJson.class)
+                .block();
+    }
+
+    public Page<ArtistJson> findByName(String name, PageRequest pageRequest) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("name", name);
+
+        URI uri = UriComponentsBuilder
+                .fromHttpUrl(artistBaseUri + "/artist")
+                .queryParams(params)
+                .encode(StandardCharsets.UTF_8)
+                .build()
+                .toUri();
+        return webClient.get()
+                .uri(uri)
+                .retrieve()
+                .bodyToFlux(ArtistJson.class)
+                .collectList()
+                .map(a -> createPage(a, pageRequest))
                 .block();
     }
 

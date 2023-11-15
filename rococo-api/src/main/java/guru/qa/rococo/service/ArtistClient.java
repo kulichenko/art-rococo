@@ -99,7 +99,7 @@ public class ArtistClient {
 
     private Page<ArtistJson> createPage(List<ArtistJson> artists, Pageable pageable) {
         int totalElements = artists.size();
-        int offset = (int) pageable.getOffset();
+        int offset = totalElements > 0 ? (int) pageable.getOffset() : 0;
         int pageSize = pageable.getPageSize();
         int lastIndex;
         if (offset + pageSize < totalElements - 1) {

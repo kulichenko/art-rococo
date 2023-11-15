@@ -116,7 +116,7 @@ public class PaintingClient {
 
     private Page<PaintingJson> createPage(List<PaintingJson> pictures, Pageable pageable) {
         int totalElements = pictures.size();
-        int offset = (int) pageable.getOffset();
+        int offset = totalElements > 0 ? (int) pageable.getOffset() : 0;
         int pageSize = pageable.getPageSize();
         int lastIndex;
         if (offset + pageSize < totalElements - 1) {

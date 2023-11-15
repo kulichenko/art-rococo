@@ -60,7 +60,7 @@ public class GeoClient {
 
     private Page<CountryJson> createPage(List<CountryJson> geo, Pageable pageable) {
         int totalElements = geo.size();
-        int offset = (int) pageable.getOffset();
+        int offset = totalElements > 0 ? (int) pageable.getOffset() : 0;
         int pageSize = pageable.getPageSize();
         int lastIndex;
         if (offset + pageSize < totalElements - 1) {

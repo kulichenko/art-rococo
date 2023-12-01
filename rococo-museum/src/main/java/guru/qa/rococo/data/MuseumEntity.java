@@ -26,7 +26,7 @@ public class MuseumEntity {
     @Column
     String title;
 
-    @Column
+    @Column(length = 2000)
     String description;
 
     @Column

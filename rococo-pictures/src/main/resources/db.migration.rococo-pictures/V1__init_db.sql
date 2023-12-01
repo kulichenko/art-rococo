@@ -4,10 +4,10 @@ create table if not exists "pictures"
 (
     id          UUID unique         not null default uuid_generate_v1(),
     title       varchar(250) unique not null,
-    description varchar(1000),
+    description varchar(2000),
     content     bytea,
-    museumId    uuid,
-    artistId    uuid,
+    museum_id   uuid,
+    artist_id   uuid,
     primary key (id)
 );
 

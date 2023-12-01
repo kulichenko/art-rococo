@@ -1,4 +1,4 @@
-package guru.qa.rococo.data;
+package guru.qa.rococo.data.entity.userdata;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,27 +14,24 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "pictures")
-public class PaintingEntity {
+@Table(name = "\"user\"")
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, columnDefinition = "UUID default gen_random_uuid()")
-    UUID id;
+    private UUID id;
 
-    @Column
-    String title;
+    @Column(nullable = false, unique = true)
+    private String username;
 
-    @Column(length = 2000)
-    String description;
+    @Column()
+    private String firstname;
 
-    @Column
-    byte[] content;
+    @Column()
+    private String lastname;
 
-    @Column
-    UUID museumId;
-
-    @Column
-    UUID artistId;
+    @Column(name = "avatar", columnDefinition = "bytea")
+    private byte[] avatar;
 
 }

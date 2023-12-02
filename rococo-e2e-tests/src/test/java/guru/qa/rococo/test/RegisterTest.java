@@ -1,6 +1,8 @@
 package guru.qa.rococo.test;
 
 import com.codeborne.selenide.Selenide;
+import guru.qa.rococo.jupiter.annotations.ApiLogin;
+import guru.qa.rococo.jupiter.annotations.GenerateUser;
 import guru.qa.rococo.page.MainPage;
 import guru.qa.rococo.page.RegisterPage;
 import io.qameta.allure.AllureId;
@@ -26,7 +28,8 @@ public class RegisterTest extends BaseWebTest {
                 .waitForPageLoaded()
                 .fillLoginPage(username, basePassword)
                 .submit(new MainPage())
-                .waitForPageLoaded();
+                .waitForPageLoaded()
+                .avatarShouldBeVisibleAfterLogin();
     }
 
     @Test
@@ -41,5 +44,17 @@ public class RegisterTest extends BaseWebTest {
                 .setPasswordSubmit(secondBasePassword)
                 .errorSubmit()
                 .checkErrorMessage("Passwords should be equal");
+    }
+
+    @Test
+    @ApiLogin(user = @GenerateUser())
+    @AllureId("153")
+    @DisplayName("[WEB] [Registration] User should login after registration")
+    void userShouldLoginAfterRsdaegistering() {
+        String username = generateRandomUsername();
+        Selenide.open(CFG.baseUrl(), MainPage.class)
+                .waitForPageLoaded()
+                .avatarShouldBeVisibleAfterLogin();
+        Selenide.sleep(10000);
     }
 }

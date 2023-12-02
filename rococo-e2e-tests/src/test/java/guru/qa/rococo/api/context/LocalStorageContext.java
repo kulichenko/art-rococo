@@ -5,10 +5,10 @@ import guru.qa.rococo.util.OauthUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SessionStorageContext {
+public class LocalStorageContext {
 
-    private static final ThreadLocal<SessionStorageContext>
-            INSTANCE = ThreadLocal.withInitial(SessionStorageContext::new);
+    private static final ThreadLocal<LocalStorageContext>
+            INSTANCE = ThreadLocal.withInitial(LocalStorageContext::new);
     private static final String
             CODE_CHALLENGE_KEY = "CODE_CHALLENGE_KEY",
             CODE_VERIFIER_KEY = "CODE_VERIFIER_KEY",
@@ -17,7 +17,7 @@ public class SessionStorageContext {
 
     private final Map<String, String> store = new HashMap<>();
 
-    public static SessionStorageContext getInstance() {
+    public static LocalStorageContext getInstance() {
         return INSTANCE.get();
     }
 

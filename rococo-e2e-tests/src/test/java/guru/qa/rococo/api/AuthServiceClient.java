@@ -2,7 +2,7 @@ package guru.qa.rococo.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import guru.qa.rococo.api.context.CookieContext;
-import guru.qa.rococo.api.context.SessionStorageContext;
+import guru.qa.rococo.api.context.LocalStorageContext;
 import guru.qa.rococo.api.interceptor.AddCookieInterceptor;
 import guru.qa.rococo.api.interceptor.RecievedCodeInterceptor;
 import guru.qa.rococo.api.interceptor.RecievedCookieInterceptor;
@@ -26,14 +26,14 @@ public class AuthServiceClient extends RestService {
 
     @Step("Do api login")
     public void doLogin(String username, String password) throws IOException {
-        SessionStorageContext sessionStorageContext = SessionStorageContext.getInstance();
+        LocalStorageContext localStorageContext = LocalStorageContext.getInstance();
         CookieContext cookieContext = CookieContext.getInstance();
         authService.authorize(
                 "code",
                 "client",
                 "openid",
                 CFG.baseUrl() + "/authorized",
-                sessionStorageContext.getCodeChallenge(),
+                localStorageContext.getCodeChallenge(),
                 "S256"
         ).execute();
 
@@ -48,10 +48,10 @@ public class AuthServiceClient extends RestService {
                 "client",
                 CFG.baseUrl() + "/authorized",
                 "authorization_code",
-                sessionStorageContext.getCode(),
-                sessionStorageContext.getCodeVerifier()
+                localStorageContext.getCode(),
+                localStorageContext.getCodeVerifier()
         ).execute().body();
 
-        sessionStorageContext.setToken(response.get("id_token").asText());
+        localStorageContext.setToken(response.get("id_token").asText());
     }
 }

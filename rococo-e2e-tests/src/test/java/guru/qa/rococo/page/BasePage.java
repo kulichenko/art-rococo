@@ -13,6 +13,7 @@ public abstract class BasePage<T extends BasePage> {
 
     private final SelenideElement alertMessage = $(".text-base");
 
+    @Step("Checking that page is loaded")
     public abstract T waitForPageLoaded();
 
     @Step("Check that success message appears: {expectedText}")

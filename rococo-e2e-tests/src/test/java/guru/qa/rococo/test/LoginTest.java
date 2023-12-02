@@ -18,13 +18,14 @@ public class LoginTest extends BaseWebTest {
     @Test
     @AllureId("1")
     void loginTest(AuthUserEntity user) {
-        Selenide.open(CFG.baseUrl(), WelcomePage.class)
+        Selenide.open(WelcomePage.URL, WelcomePage.class)
                 .waitForPageLoaded()
                 .doLogin()
                 .waitForPageLoaded()
                 .fillLoginPage(user.getUsername(), user.getPassword())
                 .submit(new MainPage())
-                .waitForPageLoaded();
+                .waitForPageLoaded()
+                .avatarShouldBeVisibleAfterLogin();
     }
 
 
@@ -33,7 +34,7 @@ public class LoginTest extends BaseWebTest {
     @Test
     @AllureId("2")
     void incorrectUserLoginTest(AuthUserEntity user) {
-        Selenide.open(CFG.baseUrl(), WelcomePage.class)
+        Selenide.open(WelcomePage.URL, WelcomePage.class)
                 .waitForPageLoaded()
                 .doLogin()
                 .waitForPageLoaded()

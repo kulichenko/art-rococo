@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage extends BasePage<LoginPage> {
 
-    public static final String URL = CFG.authUrl() + "login";
+    public static final String URL = CFG.authUrl() + "/login";
 
     SelenideElement
             header = $(".form__header"),

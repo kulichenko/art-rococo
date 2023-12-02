@@ -4,7 +4,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import guru.qa.rococo.api.AuthServiceClient;
 import guru.qa.rococo.api.context.CookieContext;
-import guru.qa.rococo.api.context.SessionStorageContext;
+import guru.qa.rococo.api.context.LocalStorageContext;
 import guru.qa.rococo.config.Config;
 import guru.qa.rococo.jupiter.annotations.ApiLogin;
 import guru.qa.rococo.jupiter.annotations.GenerateUser;
@@ -44,12 +44,12 @@ public class ApiLoginExtension implements BeforeEachCallback, AfterTestExecution
 
     @Override
     public void afterTestExecution(ExtensionContext extensionContext) throws Exception {
-        SessionStorageContext.getInstance().clearContext();
+        LocalStorageContext.getInstance().clearContext();
     }
 
     private void doLogin(String username, String password) {
-        SessionStorageContext sessionStorageContext = SessionStorageContext.getInstance();
-        sessionStorageContext.init();
+        LocalStorageContext localStorageContext = LocalStorageContext.getInstance();
+        localStorageContext.init();
 
         try {
             authServiceClient.doLogin(username, password);
@@ -58,9 +58,9 @@ public class ApiLoginExtension implements BeforeEachCallback, AfterTestExecution
         }
 
         Selenide.open(Config.getInstance().baseUrl());
-        Selenide.sessionStorage().setItem("codeChallenge", sessionStorageContext.getCodeChallenge());
-        Selenide.sessionStorage().setItem("id_token", sessionStorageContext.getToken());
-        Selenide.sessionStorage().setItem("codeVerifier", sessionStorageContext.getCodeVerifier());
+        Selenide.localStorage().setItem("codeChallenge", localStorageContext.getCodeChallenge());
+        Selenide.localStorage().setItem("id_token", localStorageContext.getToken());
+        Selenide.localStorage().setItem("codeVerifier", localStorageContext.getCodeVerifier());
         Cookie jsessionIdCookie = new Cookie("JSESSIONID", CookieContext.getInstance().getJSessionIdCookieValue());
         WebDriverRunner.getWebDriver().manage().addCookie(jsessionIdCookie);
     }

@@ -64,7 +64,6 @@ public class DBUserExtension implements BeforeEachCallback, ParameterResolver, A
             AuthUserDAO authUserDAO = new AuthUserDAOHibernate();
             UserDataUserDAO userDataUserDAO = new UserDataUserDAOHibernate();
             var userId = authUserDAO.createUser(authUserEntity);
-//            authUserEntity.setId(userId);
             userDataUserEntity.setUsername(authUserEntity.getUsername());
             userDataUserDAO.createUserInUserData(userDataUserEntity);
             authUserEntity.setPassword(pass);

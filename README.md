@@ -54,6 +54,7 @@ $ npm run dev
 ./gradlew :rococo-geo:bootRun --args='--spring.profiles.active=local'
 ./gradlew :rococo-museum:bootRun --args='--spring.profiles.active=local'
 ./gradlew :rococo-pictures:bootRun --args='--spring.profiles.active=local'
+./gradlew :rococo-userdata:bootRun --args='--spring.profiles.active=local'
 ```
 
 

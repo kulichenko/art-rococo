@@ -11,17 +11,28 @@
 
 ### Схема взаимодействия сервисов Rococo
 
-![img_1.png](img_1.png)
+![img_2.png](img_2.png)
 
 ## Алгоритм запуска приложения
 
-### 1. Запустить базу данных, kafka и zookeeper необходимо выполнить команду
+### 1. Запусти базу данных, kafka и zookeeper необходимо выполнить команду
 
 ```posh
 $ bash localenv.sh
 ```
 
-### 2. Запустить frontend проекта, для этого нужно перейти в каталог
+### 2. Создай БД для сервисов
+
+```posh
+create database "rococo-auth" with owner postgres;
+create database "rococo-artist" with owner postgres;
+create database "rococo-geo" with owner postgres;
+create database "rococo-museum" with owner postgres;
+create database "rococo-pictures" with owner postgres;
+create database "rococo-userdata" with owner postgres;
+```
+
+### 3. Запусти frontend проекта, для этого нужно перейти в каталог
 
 ```posh
 $ cd ./rococo-client
@@ -33,20 +44,27 @@ $ cd ./rococo-client
 $ npm i
 ```
 
-и запусть фронт с помощью команды
+и запусти фронт с помощью команды
 
 ```posh
 $ npm run dev
 ```
-Фронт стартанет в твоем браузере на порту 3000: http://127.0.0.1:3000/
 
-### 3. Запустите модуль авторизации rococo-auth
+Фронт стартанет на порту 3000: http://127.0.0.1:3000/
+
+### 4. Запустите модуль авторизации rococo-auth
+
+При запуске в Intellij Idea предварительно нужно указать Active profile=local
+либо запустить с помощью команды в терминале
 
 ```posh
 ./gradlew :rococo-auth:bootRun --args='--spring.profiles.active=local'
 ```
 
-### 4. Далее в произвольном порядке запустите оставшиеся сервисы
+### 5. Далее в произвольном порядке запусти оставшиеся сервисы
+
+При запуске в Intellij Idea предварительно нужно указать Active profile=local
+либо запустить с помощью команды в терминале
 
 ```posh
 ./gradlew :rococo-api:bootRun --args='--spring.profiles.active=local'

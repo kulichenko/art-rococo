@@ -38,9 +38,6 @@ spring:
     show-sql: false
     generate-ddl: true
     open-in-view: false
-  sql:
-    init:
-      mode: always
 
 logging:
   level:

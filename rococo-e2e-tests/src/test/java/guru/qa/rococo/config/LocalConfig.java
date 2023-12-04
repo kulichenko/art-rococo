@@ -1,11 +1,17 @@
 package guru.qa.rococo.config;
 
+import com.codeborne.selenide.Configuration;
+
 public class LocalConfig implements Config {
 
     //package access для того, чтобы исключить возможность создания конфига из других пакетов
     static final LocalConfig config = new LocalConfig();
 
     private LocalConfig() {
+    }
+
+    static {
+        Configuration.browserSize = "1980x1024";
     }
 
     @Override

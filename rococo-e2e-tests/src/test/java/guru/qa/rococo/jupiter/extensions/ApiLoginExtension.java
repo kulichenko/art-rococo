@@ -73,21 +73,3 @@ public class ApiLoginExtension implements BeforeEachCallback, AfterTestExecution
         return allureId.value();
     }
 }
-
-
-//    Old Impl
-//    @Override
-//    public void beforeEach(ExtensionContext extensionContext) throws Exception {
-//        ApiLogin apiLoginAnnotation = extensionContext.getRequiredTestMethod().getAnnotation(ApiLogin.class);
-//        AddUserToDB addUserToDbAnnotation = extensionContext.getRequiredTestMethod().getAnnotation(AddUserToDB.class);
-//        String username, password;
-//        if (addUserToDbAnnotation != null) {
-//            AuthUserEntity authUserEntity = extensionContext.getStore(NAMESPACE_USER).get(AUTH_USER, AuthUserEntity.class);
-//            username = authUserEntity.getUsername();
-//            password = authUserEntity.getPassword();
-//        } else {
-//            username = apiLoginAnnotation.username();
-//            password = apiLoginAnnotation.password();
-//        }
-//        doLogin(username, password);
-//    }

@@ -8,4 +8,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.PARAMETER, ElementType.METHOD})
 public @interface GenerateArtist {
+    boolean handleAnnotation() default true;
+
+    int count() default 1;
+
+    String name() default "";
+
+    String biography() default "";
+
+    String photo() default "";
+
 }

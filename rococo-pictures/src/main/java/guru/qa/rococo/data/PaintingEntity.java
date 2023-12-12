@@ -22,19 +22,19 @@ public class PaintingEntity {
     @Column(name = "id", nullable = false, columnDefinition = "UUID default gen_random_uuid()")
     UUID id;
 
-    @Column
+    @Column(nullable = false)
     String title;
 
-    @Column(length = 2000)
+    @Column(nullable = false, length = 2000)
     String description;
 
-    @Column
+    @Column(nullable = false)
     byte[] content;
 
-    @Column
+    @Column(nullable = false)
     UUID museumId;
 
-    @Column
+    @Column(nullable = false)
     UUID artistId;
 
 }

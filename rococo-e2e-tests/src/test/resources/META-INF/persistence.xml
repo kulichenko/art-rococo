@@ -7,6 +7,10 @@
         <class>guru.qa.rococo.data.entity.auth.AuthUserEntity</class>
         <class>guru.qa.rococo.data.entity.auth.AuthorityEntity</class>
         <class>guru.qa.rococo.data.entity.userdata.UserEntity</class>
+        <class>guru.qa.rococo.data.entity.geo.GeoEntity</class>
+        <class>guru.qa.rococo.data.entity.artist.ArtistEntity</class>
+        <class>guru.qa.rococo.data.entity.museum.MuseumEntity</class>
+        <class>guru.qa.rococo.data.entity.painting.PaintingEntity</class>
     </persistence-unit>
 
 </persistence>

@@ -10,15 +10,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface AuthService {
-
-    //init state вход на страницу http://127.0.0.1:3000/
-    // 1. Пустые куки
-    // 2. Session Storage:
-    //      codeChallenge	2yuy0OS6XXsJv3CgxI2NHsQSW34KUOoe5iNh5PdjWIg
-    //      codeVerifier	d2Ll5s4dI1OhMEGZpetovfq_qDjNDwYiB5bHdDHqMkY
-    // Empty Local Storage
-
-
     @GET("/oauth2/authorize")
     Call<Void> authorize(
             @Query("response_type") String responseType,
@@ -32,8 +23,6 @@ public interface AuthService {
     @POST("/login")
     @FormUrlEncoded
     Call<Void> login(
-//            @Header("Cookie") String jsessionIdCookie,
-//            @Header("Cookie") String xsrfTockenCookie,
             @Field("username") String username,
             @Field("password") String password,
             @Field("_csrf") String _csrf

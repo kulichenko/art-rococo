@@ -23,7 +23,7 @@ public class MuseumEntity {
     @Column(name = "id", nullable = false, columnDefinition = "UUID default gen_random_uuid()")
     UUID id;
 
-    @Column
+    @Column(nullable = false)
     String title;
 
     @Column(length = 2000)
@@ -32,10 +32,10 @@ public class MuseumEntity {
     @Column
     byte[] photo;
 
-    @Column
+    @Column(nullable = false)
     String city;
 
-    @Column
+    @Column(name = "country_id", nullable = false)
     UUID countryId;
 
 }

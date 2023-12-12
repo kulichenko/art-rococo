@@ -22,11 +22,23 @@ public class FakerUtils {
         return faker.name().lastName();
     }
 
-    public static String generateNewCategory() {
-        return faker.food().fruit();
+    public static String generateNewMuseumTitle() {
+        return faker.company().name();
+    }
+
+    public static String generateRandomCity() {
+        return faker.country().capital();
+    }
+
+    public static int generateRandomInt(int min, int max) {
+        return faker.random().nextInt(min, max);
     }
 
     public static String generateRandomSentence(int wordsCount) {
         return faker.lorem().sentence(wordsCount);
+    }
+
+    public static String generateRandomImage() {
+        return faker.avatar().image();
     }
 }

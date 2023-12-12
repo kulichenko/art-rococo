@@ -69,6 +69,8 @@ dependencies {
     testImplementation 'com.github.tomakehurst:wiremock-standalone:2.27.2'
     testImplementation 'org.springframework.security:spring-security-crypto:6.1.0'
 
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
     // Lombok
     testAnnotationProcessor "org.projectlombok:lombok:${project.ext.lombokVersion}"
     testCompileOnly "org.projectlombok:lombok:${project.ext.lombokVersion}"

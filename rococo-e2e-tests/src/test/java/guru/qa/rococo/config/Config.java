@@ -11,6 +11,8 @@ public interface Config {
         return LocalConfig.config;
     }
 
+    int TEN_MB = 10 * 1024 * 1024;
+
     String baseUrl();
 
     String databaseAddress();

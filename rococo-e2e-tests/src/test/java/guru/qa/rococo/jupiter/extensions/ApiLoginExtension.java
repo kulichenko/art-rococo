@@ -45,6 +45,7 @@ public class ApiLoginExtension implements BeforeEachCallback, AfterTestExecution
     @Override
     public void afterTestExecution(ExtensionContext extensionContext) throws Exception {
         LocalStorageContext.getInstance().clearContext();
+        CookieContext.getInstance().clearContext();
     }
 
     private void doLogin(String username, String password) {

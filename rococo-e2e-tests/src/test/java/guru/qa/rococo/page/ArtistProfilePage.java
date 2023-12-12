@@ -29,6 +29,7 @@ public class ArtistProfilePage extends BasePage<ArtistProfilePage> {
 
     @Override
     public ArtistProfilePage waitForPageLoaded() {
+        progressRadialShouldNotBeVisible();
         artistName.should(visible, Duration.ofSeconds(3000));
         biography.should(visible, Duration.ofSeconds(3000));
         return this;

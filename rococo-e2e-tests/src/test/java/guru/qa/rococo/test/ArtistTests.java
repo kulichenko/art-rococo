@@ -57,6 +57,7 @@ public class ArtistTests extends BaseWebTest {
                 .checkThatPaintingIsEnableOnArtistProfilePage(paintingJson);
     }
 
+    @GenerateMuseum(generatePictures = @GeneratePictures)
     @AllureId("12")
     @DisplayName("[WEB] [ARTIST] Unauthorized user can't add artists")
     @Test

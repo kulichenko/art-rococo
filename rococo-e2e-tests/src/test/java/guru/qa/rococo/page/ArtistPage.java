@@ -24,10 +24,9 @@ public class ArtistPage extends BasePage<ArtistPage> {
 
     private final ElementsCollection artistsCards = $$(".flex.flex-col.justify-center.items-center");
 
-    //avatar-image
-
     @Override
     public ArtistPage waitForPageLoaded() {
+        progressRadialShouldNotBeVisible();
         artistPageTitle.should(visible);
         searchArtistInput.should(visible);
         searchSubmitBtn.should(visible);
@@ -55,6 +54,7 @@ public class ArtistPage extends BasePage<ArtistPage> {
         searchArtistInput.setValue(artistName);
         searchSubmitBtn.click();
         artistsCards.find(text(artistName)).click();
+        progressRadialShouldNotBeVisible();
         return new ArtistProfilePage();
     }
 
@@ -64,6 +64,7 @@ public class ArtistPage extends BasePage<ArtistPage> {
             searchArtistInput.setValue(artist.getName());
             searchSubmitBtn.click();
             artistsCards.find(text(artist.getName())).should(visible);
+            progressRadialShouldNotBeVisible();
         }
         return this;
     }

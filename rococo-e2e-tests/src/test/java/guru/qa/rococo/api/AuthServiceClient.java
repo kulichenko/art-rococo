@@ -7,7 +7,6 @@ import guru.qa.rococo.api.interceptor.AddCookieInterceptor;
 import guru.qa.rococo.api.interceptor.RecievedCodeInterceptor;
 import guru.qa.rococo.api.interceptor.RecievedCookieInterceptor;
 import io.qameta.allure.Step;
-import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -29,7 +28,7 @@ public class AuthServiceClient extends RestService {
     public void doLogin(String username, String password) throws IOException {
         LocalStorageContext localStorageContext = LocalStorageContext.getInstance();
         CookieContext cookieContext = CookieContext.getInstance();
-        Response<Void> execute = authService.authorize(
+        authService.authorize(
                 "code",
                 "client",
                 "openid",
@@ -38,7 +37,7 @@ public class AuthServiceClient extends RestService {
                 "S256"
         ).execute();
 
-        Response<Void> execute1 = authService.login(
+        authService.login(
                 username,
                 password,
                 cookieContext.getXsrfTokenCookieValue()

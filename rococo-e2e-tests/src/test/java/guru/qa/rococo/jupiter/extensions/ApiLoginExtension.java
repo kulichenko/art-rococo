@@ -23,7 +23,15 @@ import static guru.qa.rococo.jupiter.extensions.CreateUserExtension.NESTED;
 public class ApiLoginExtension implements BeforeEachCallback, AfterTestExecutionCallback {
 
     private final AuthServiceClient authServiceClient = new AuthServiceClient();
+    private final boolean setUpBrowser;
 
+    public ApiLoginExtension() {
+        this.setUpBrowser = true;
+    }
+
+    public ApiLoginExtension(boolean setUpBrowser) {
+        this.setUpBrowser = setUpBrowser;
+    }
 
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
@@ -64,6 +72,10 @@ public class ApiLoginExtension implements BeforeEachCallback, AfterTestExecution
         Selenide.localStorage().setItem("codeVerifier", localStorageContext.getCodeVerifier());
         Cookie jsessionIdCookie = new Cookie("JSESSIONID", CookieContext.getInstance().getJSessionIdCookieValue());
         WebDriverRunner.getWebDriver().manage().addCookie(jsessionIdCookie);
+    }
+
+    public static ApiLoginExtension create(boolean setUpBrowser) {
+        return new ApiLoginExtension(setUpBrowser);
     }
 
     private String getAllureId(ExtensionContext context) {

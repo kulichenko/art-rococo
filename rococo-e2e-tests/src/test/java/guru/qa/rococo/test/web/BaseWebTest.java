@@ -1,4 +1,4 @@
-package guru.qa.rococo.test;
+package guru.qa.rococo.test.web;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import guru.qa.rococo.config.Config;

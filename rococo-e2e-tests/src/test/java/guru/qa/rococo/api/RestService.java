@@ -8,6 +8,9 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public abstract class RestService {
 
     protected static final Config CFG = Config.getInstance();
@@ -15,15 +18,17 @@ public abstract class RestService {
 
     protected final Retrofit retrofit;
 
-    public RestService(String baseUrl) {
+    public RestService(@Nonnull String baseUrl) {
         this(baseUrl, false, (Interceptor) null);
     }
 
-    public RestService(String baseUrl, boolean followRedirect) {
+    public RestService(@Nonnull String baseUrl, boolean followRedirect) {
         this(baseUrl, followRedirect, (Interceptor) null);
     }
 
-    public RestService(String baseUrl, boolean followRedirect, Interceptor... interceptors) {
+    public RestService(@Nonnull String baseUrl,
+                       boolean followRedirect,
+                       @Nullable Interceptor... interceptors) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .followRedirects(followRedirect)
                 .addInterceptor(new AllureOkHttp3());

@@ -1,6 +1,6 @@
-package guru.qa.rococo.api;
+package guru.qa.rococo.api.userdata;
 
-import guru.qa.rococo.UserdataApi;
+import guru.qa.rococo.api.RestService;
 import guru.qa.rococo.model.UserJson;
 import io.qameta.allure.Step;
 
@@ -24,7 +24,7 @@ public class UserDataRestClient extends RestService {
 
     @Step("Send REST POST('/editUser') request to userdata service")
     @Nullable
-    public UserJson updateUser(@Nonnull UserJson userJson) throws Exception {
+    public UserJson editUser(@Nonnull UserJson userJson) throws Exception {
         return userdataApi.editUser(userJson)
                 .execute()
                 .body();

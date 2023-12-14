@@ -18,13 +18,7 @@ import static guru.qa.rococo.util.FakerUtils.generateRandomSentence;
 import static guru.qa.rococo.util.Utils.getRandomFileFromDir;
 
 public class PaintingTests extends BaseWebTest {
-    @GenerateMuseum
-            (
-                    generatePictures = @GeneratePictures
-                            (
-                                    count = 3
-                            )
-            )
+    @GenerateMuseum(generatePictures = @GeneratePictures(count = 3))
     @AllureId("14")
     @DisplayName("[WEB] [PAINTING] Paintings are available for unauthorized user")
     @Test
@@ -36,12 +30,7 @@ public class PaintingTests extends BaseWebTest {
     }
 
     @ApiLogin(user = @GenerateUser())
-    @GenerateMuseum
-            (
-                    generatePictures = @GeneratePictures(
-                            count = 2
-                    )
-            )
+    @GenerateMuseum(generatePictures = @GeneratePictures(count = 2))
     @AllureId("15")
     @DisplayName("[WEB] [PAINTING] Paintings are available for authorized user")
     @Test
@@ -56,7 +45,7 @@ public class PaintingTests extends BaseWebTest {
     @AllureId("16")
     @DisplayName("[WEB] [PAINTING] An authorized user can add painting")
     @Test
-    void authorizedUserCanAddPainting() {
+    void paintingShouldBeEnableAfterAdding() {
         PaintingJson paintingJson = new PaintingJson()
                 .setTitle(generateRandomSentence(generateRandomInt(1, 3)))
                 .setDescription(generateRandomSentence(generateRandomInt(3, 7)));

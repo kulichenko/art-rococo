@@ -15,7 +15,10 @@ public abstract class BasePage<T extends BasePage> {
     protected static final Config CFG = Config.getInstance();
 
     private final SelenideElement alertMessage = $(".text-base");
-    public final SelenideElement progressRadial = $("figure[data-testid='progress-radial']");
+    protected final SelenideElement progressRadial = $("figure[data-testid='progress-radial']");
+
+    protected final SelenideElement searchInput = $("input[type='search']");
+    protected final SelenideElement searchSubmitBtn = $(".btn-icon.variant-soft-surface.ml-4");
 
     @Step("Checking that page is loaded")
     public abstract T waitForPageLoaded();

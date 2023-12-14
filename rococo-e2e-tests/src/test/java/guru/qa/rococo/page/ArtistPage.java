@@ -18,17 +18,14 @@ public class ArtistPage extends BasePage<ArtistPage> {
     public static final String URL = CFG.baseUrl() + "/artist";
 
     private final SelenideElement addArtistBtn = $$("button").find(Condition.text("Добавить художника"));
-    private final SelenideElement artistPageTitle = $$("h2").find(Condition.text("Художники"));
-    private final SelenideElement searchArtistInput = $("input[type='search']");
-    private final SelenideElement searchSubmitBtn = $(".btn-icon.variant-soft-surface.ml-4");
-
+    private final SelenideElement pageTitle = $$("h2").find(Condition.text("Художники"));
     private final ElementsCollection artistsCards = $$(".flex.flex-col.justify-center.items-center");
 
     @Override
     public ArtistPage waitForPageLoaded() {
         progressRadialShouldNotBeVisible();
-        artistPageTitle.should(visible);
-        searchArtistInput.should(visible);
+        pageTitle.should(visible);
+        searchInput.should(visible);
         searchSubmitBtn.should(visible);
         return this;
     }
@@ -51,7 +48,7 @@ public class ArtistPage extends BasePage<ArtistPage> {
 
     @Step("Select artist")
     public ArtistProfilePage selectArtist(String artistName) {
-        searchArtistInput.setValue(artistName);
+        searchInput.setValue(artistName);
         searchSubmitBtn.click();
         artistsCards.find(text(artistName)).click();
         progressRadialShouldNotBeVisible();
@@ -61,7 +58,7 @@ public class ArtistPage extends BasePage<ArtistPage> {
     @Step("Search artist")
     public ArtistPage searchArtist(List<ArtistJson> artistJsons) {
         for (var artist : artistJsons) {
-            searchArtistInput.setValue(artist.getName());
+            searchInput.setValue(artist.getName());
             searchSubmitBtn.click();
             artistsCards.find(text(artist.getName())).should(visible);
             progressRadialShouldNotBeVisible();

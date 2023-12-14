@@ -1,6 +1,5 @@
 package guru.qa.rococo.page;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -11,6 +10,7 @@ import io.qameta.allure.Step;
 import java.io.File;
 import java.util.List;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -20,20 +20,19 @@ public class MuseumPage extends BasePage<MuseumPage> {
 
     public static final String URL = CFG.baseUrl() + "/museum";
 
-    private final AddMuseumModal modal = new AddMuseumModal($(".card.p-4.w-modal.shadow-xl.space-y-4"));
+    private final AddMuseumModal addMuseumModal = new AddMuseumModal($(".card.p-4.w-modal.shadow-xl.space-y-4"));
 
     private final SelenideElement addMuseumBtn = $$("button").find(Condition.text("Добавить музей"));
-    private final SelenideElement museumPageTitle = $$("h2").find(Condition.text("Музеи"));
-    private final SelenideElement searchMuseumInput = $("input[type='search']");
-    private final SelenideElement searchSubmitBtn = $(".btn-icon.variant-soft-surface.ml-4");
+    private final SelenideElement pageTitle = $$("h2").find(Condition.text("Музеи"));
 
     private final ElementsCollection museumsCards = $$("a[href*='/museum/']");
 
 
     @Override
     public MuseumPage waitForPageLoaded() {
-        museumPageTitle.should(visible);
-        searchMuseumInput.should(visible);
+        progressRadialShouldNotBeVisible();
+        pageTitle.should(visible);
+        searchInput.should(visible);
         searchSubmitBtn.should(visible);
         return this;
     }
@@ -41,19 +40,19 @@ public class MuseumPage extends BasePage<MuseumPage> {
     @Step("Add museum")
     public MuseumPage addMuseum(String title, String description, String country, String city, File image) {
         addMuseumBtn.click();
-        modal.fillMuseumInformation(title, description, country, city, image);
-        modal.submitMuseum();
+        addMuseumModal.fillMuseumInformation(title, description, country, city, image);
+        addMuseumModal.submitMuseum();
         return this;
     }
 
-    @Step("Check that museum is enable")
+    @Step("Check that museums are enabled")
     public MuseumPage checkMuseums(List<MuseumJson> museumJsons) {
-        museumsCards.should(CollectionCondition.sizeGreaterThanOrEqual(museumJsons.size()));
+        museumsCards.should(sizeGreaterThanOrEqual(museumJsons.size()));
         for (var museum : museumJsons) {
             String title = museum.getTitle();
             String city = museum.getCity();
             String name = museum.getGeo().getCountry().getName();
-            searchMuseumInput.setValue(title);
+            searchInput.setValue(title);
             searchSubmitBtn.click();
             museumsCards.find(text(title)).should(visible);
             museumsCards.find(text(city)).should(visible);
@@ -62,12 +61,12 @@ public class MuseumPage extends BasePage<MuseumPage> {
         return this;
     }
 
-    @Step("Check that museum is enable")
+    @Step("Check that museum is enabled")
     public MuseumPage checkMuseum(MuseumJson museum) {
         String title = museum.getTitle();
         String city = museum.getCity();
         String name = museum.getGeo().getCountry().getName();
-        searchMuseumInput.setValue(title);
+        searchInput.setValue(title);
         searchSubmitBtn.click();
         museumsCards.find(text(title)).should(visible);
         museumsCards.find(text(city)).should(visible);

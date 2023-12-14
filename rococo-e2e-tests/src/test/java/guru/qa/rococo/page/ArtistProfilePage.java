@@ -7,11 +7,10 @@ import guru.qa.rococo.model.PaintingJson;
 import guru.qa.rococo.page.components.AddPaintingModal;
 import io.qameta.allure.Step;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static java.time.Duration.ofSeconds;
 
 public class ArtistProfilePage extends BasePage<ArtistProfilePage> {
 
@@ -30,12 +29,12 @@ public class ArtistProfilePage extends BasePage<ArtistProfilePage> {
     @Override
     public ArtistProfilePage waitForPageLoaded() {
         progressRadialShouldNotBeVisible();
-        artistName.should(visible, Duration.ofSeconds(3000));
-        biography.should(visible, Duration.ofSeconds(3000));
+        artistName.should(visible, ofSeconds(3000));
+        biography.should(visible, ofSeconds(3000));
         return this;
     }
 
-    @Step("Add picture")
+    @Step("Add painting from Artist profile page")
     public AddPaintingModal clickAddPaintingBtn() {
         addPictureMainBtn.click();
         return new AddPaintingModal($(".card.p-4.w-modal.shadow-xl.space-y-4"));

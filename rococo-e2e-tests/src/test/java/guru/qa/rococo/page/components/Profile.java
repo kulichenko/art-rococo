@@ -8,9 +8,10 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Nonnull;
-import java.io.File;
 
 import static com.codeborne.selenide.Condition.visible;
+import static guru.qa.rococo.jupiter.extensions.GenerateArtistExtension.IMAGES;
+import static guru.qa.rococo.util.Utils.getRandomFileFromDir;
 
 @Getter
 @Slf4j
@@ -44,8 +45,8 @@ public class Profile extends BaseComponent<Profile> {
     }
 
     @Step("Upload avatar")
-    public Profile uploadAvatar(String pathToAvatar) {
-        updatePhotoInput.uploadFile(new File(pathToAvatar));
+    public Profile uploadAvatar() {
+        updatePhotoInput.uploadFile(getRandomFileFromDir(IMAGES));
         return this;
     }
 

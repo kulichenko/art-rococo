@@ -10,14 +10,13 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.UUID;
 
 public interface ArtistApi {
 
     @GET("/artist")
-    Call<List<ArtistJson>> findAll(Pageable pageable);
+    Call<List<ArtistJson>> findAll();
 
     @GET("/artist/{id}")
     Call<ArtistJson> findById(@Path("id") UUID id);

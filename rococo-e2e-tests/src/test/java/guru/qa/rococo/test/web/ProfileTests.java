@@ -27,7 +27,7 @@ public class ProfileTests extends BaseWebTest {
                 .getHeader()
                 .goToProfile()
                 .checkUsername(userForTest.getUsername())
-                .uploadAvatar("src/test/resources/testdata/img/avatar.jpeg")
+                .uploadAvatar()
                 .fillFirstname(name)
                 .fillSurname(surname)
                 .submitForm(new MainPage())

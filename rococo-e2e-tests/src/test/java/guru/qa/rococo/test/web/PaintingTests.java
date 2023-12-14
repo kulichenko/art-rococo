@@ -22,7 +22,7 @@ public class PaintingTests extends BaseWebTest {
     @AllureId("14")
     @DisplayName("[WEB] [PAINTING] Paintings are available for unauthorized user")
     @Test
-    void unauthorizedUserShouldSeePaintings(@GenerateMuseum List<PaintingJson> paintingJsons) {
+    void unauthorizedUserShouldSeePaintings(List<PaintingJson> paintingJsons) {
         open(PaintingPage.URL, PaintingPage.class)
                 .waitForPageLoaded()
                 .checkAddPaintingButton(false)
@@ -34,7 +34,7 @@ public class PaintingTests extends BaseWebTest {
     @AllureId("15")
     @DisplayName("[WEB] [PAINTING] Paintings are available for authorized user")
     @Test
-    void authorizedUserShouldSeePaintings(@GenerateMuseum List<PaintingJson> paintingJsons) {
+    void authorizedUserShouldSeePaintings(List<PaintingJson> paintingJsons) {
         open(PaintingPage.URL, PaintingPage.class)
                 .waitForPageLoaded()
                 .checkAddPaintingButton(true)

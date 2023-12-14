@@ -25,18 +25,11 @@ public class MuseumsTests extends BaseWebTest {
 
     private Utils utils = new Utils();
 
-    @GenerateMuseum
-            (
-                    count = 2,
-                    generatePictures = @GeneratePictures
-                            (
-                                    count = 3
-                            )
-            )
+    @GenerateMuseum(count = 2, generatePictures = @GeneratePictures(count = 3))
     @AllureId("7")
     @DisplayName("[WEB] [MUSEUM] Museums are available for unauthorized user")
     @Test
-    void unauthorizedUserShouldSeeMuseums(@GenerateMuseum List<PaintingJson> paintingJsons) {
+    void unauthorizedUserShouldSeeMuseums(List<PaintingJson> paintingJsons) {
         List<MuseumJson> museumJsons = paintingJsons.stream().map(PaintingJson::getMuseum).distinct().toList();
         open(MuseumPage.URL, MuseumPage.class)
                 .waitForPageLoaded()
@@ -45,14 +38,11 @@ public class MuseumsTests extends BaseWebTest {
     }
 
     @ApiLogin(user = @GenerateUser())
-    @GenerateMuseum
-            (
-                    count = 3
-            )
+    @GenerateMuseum(count = 3)
     @AllureId("8")
     @DisplayName("[WEB] [MUSEUM] Museums are available for authorized user")
     @Test
-    void authorizedUserShouldSeeMuseums(@GenerateMuseum List<PaintingJson> paintingJsons) {
+    void authorizedUserShouldSeeMuseums(List<PaintingJson> paintingJsons) {
         List<MuseumJson> museumJsons = paintingJsons.stream().map(PaintingJson::getMuseum).distinct().toList();
         open(MuseumPage.URL, MuseumPage.class)
                 .waitForPageLoaded()

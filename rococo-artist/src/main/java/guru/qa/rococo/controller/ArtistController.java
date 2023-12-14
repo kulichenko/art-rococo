@@ -3,7 +3,6 @@ package guru.qa.rococo.controller;
 import guru.qa.rococo.model.ArtistJson;
 import guru.qa.rococo.service.ArtistService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +22,7 @@ public class ArtistController {
     private final ArtistService service;
 
     @GetMapping
-    public List<ArtistJson> findAll(Pageable pageable) {
+    public List<ArtistJson> findAll() {
         return service.findAll();
     }
 

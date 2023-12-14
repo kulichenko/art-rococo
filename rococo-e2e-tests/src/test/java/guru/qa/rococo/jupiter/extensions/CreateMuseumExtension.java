@@ -12,7 +12,7 @@ import guru.qa.rococo.data.repository.museum.MuseumRepository;
 import guru.qa.rococo.data.repository.museum.MuseumRepositoryHibernate;
 import guru.qa.rococo.data.repository.painting.PaintingRepository;
 import guru.qa.rococo.data.repository.painting.PaintingRepositoryHibernate;
-import guru.qa.rococo.jupiter.annotations.GenerateArtist;
+import guru.qa.rococo.jupiter.annotations.Artist;
 import guru.qa.rococo.jupiter.annotations.GenerateMuseum;
 import guru.qa.rococo.jupiter.annotations.GeneratePictures;
 import guru.qa.rococo.model.ArtistJson;
@@ -185,7 +185,7 @@ public class CreateMuseumExtension implements BeforeEachCallback, ParameterResol
 
     @Step("Generate artist json")
     private ArtistJson getArtistJson(GeneratePictures generatePicturesAnnotation) {
-        GenerateArtist generateArtistAnnotation = generatePicturesAnnotation.generateArtist();
+        Artist generateArtistAnnotation = generatePicturesAnnotation.generateArtist();
         ArtistJson artistJson = new ArtistJson();
         String artistName = generateArtistAnnotation.name();
         String biography = generateArtistAnnotation.biography();

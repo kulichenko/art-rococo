@@ -18,6 +18,6 @@ public @interface GeneratePictures {
 
     String content() default "";
 
-    GenerateArtist generateArtist() default @GenerateArtist;
+    Artist generateArtist() default @Artist;
 
 }

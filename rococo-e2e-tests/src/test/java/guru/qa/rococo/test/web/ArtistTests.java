@@ -23,25 +23,24 @@ import static guru.qa.rococo.util.FakerUtils.generateRandomSentence;
 import static guru.qa.rococo.util.Utils.getRandomFileFromDir;
 
 public class ArtistTests extends BaseWebTest {
-    //paintingShouldBeEnabledOnArtistProfilePage
+
     @GenerateMuseum(generatePictures = @GeneratePictures(count = 2))
     @AllureId("10")
     @DisplayName("[WEB] [ARTIST] Artists are available for unauthorized user")
     @Test
-    void artistShouldBeVisibleOnArtistPage(@GenerateMuseum List<PaintingJson> paintingJsons) {
+    void artistShouldBeVisibleOnArtistPage(List<PaintingJson> paintingJsons) {
         List<ArtistJson> artistJsons = paintingJsons.stream().map(PaintingJson::getArtist).distinct().toList();
         open(ArtistPage.URL, ArtistPage.class)
                 .waitForPageLoaded()
                 .searchArtist(artistJsons);
     }
 
-
     @GenerateMuseum(generatePictures = @GeneratePictures)
     @ApiLogin(user = @GenerateUser())
     @AllureId("11")
     @DisplayName("[WEB] [ARTIST] Trying adding painting from artist profile page")
     @Test
-    void paintingShouldBeVisibleOnArtistProfilePageAfterAddingPaintingFromArtistProfilePage(@GenerateMuseum List<PaintingJson> paintingJsons) {
+    void paintingShouldBeVisibleOnArtistProfilePageAfterAddingPaintingFromArtistProfilePage(List<PaintingJson> paintingJsons) {
         List<ArtistJson> artistJsons = paintingJsons.stream().map(PaintingJson::getArtist).distinct().toList();
         PaintingJson paintingJson = new PaintingJson();
         paintingJson.setTitle(generateRandomSentence(generateRandomInt(1, 3)));

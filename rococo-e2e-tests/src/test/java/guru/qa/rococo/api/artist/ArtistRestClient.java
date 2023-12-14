@@ -6,7 +6,6 @@ import io.qameta.allure.Step;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,8 +18,8 @@ public class ArtistRestClient extends RestService {
 
     @Step("Send REST GET('artist') request to artist service")
     @Nullable
-    public List<ArtistJson> findAll(Pageable pageable) throws Exception {
-        return api.findAll(pageable)
+    public List<ArtistJson> findAll() throws Exception {
+        return api.findAll()
                 .execute()
                 .body();
     }

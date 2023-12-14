@@ -8,24 +8,24 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class UserDataRestClient extends RestService {
-    public UserDataRestClient(@Nonnull String baseUrl) {
+    public UserDataRestClient() {
         super(CFG.userDataUrl());
     }
 
-    private final UserdataApi userdataApi = retrofit.create(UserdataApi.class);
+    private final UserdataApi api = retrofit.create(UserdataApi.class);
 
     @Step("Send REST GET('/currentUser') request to userdata service")
     @Nullable
     public UserJson getCurrentUser(@Nonnull String username) throws Exception {
-        return userdataApi.currentUser(username)
+        return api.currentUser(username)
                 .execute()
                 .body();
     }
 
-    @Step("Send REST POST('/editUser') request to userdata service")
+    @Step("Send REST PATCH('/editUser') request to userdata service")
     @Nullable
     public UserJson editUser(@Nonnull UserJson userJson) throws Exception {
-        return userdataApi.editUser(userJson)
+        return api.editUser(userJson)
                 .execute()
                 .body();
     }

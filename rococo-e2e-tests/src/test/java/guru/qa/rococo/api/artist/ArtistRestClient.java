@@ -26,8 +26,8 @@ public class ArtistRestClient extends RestService {
 
     @Step("Send REST GET('artist') request to artist service")
     @Nullable
-    public List<ArtistJson> findByTitle(@Nonnull String title) throws Exception {
-        return api.findByTitle(title)
+    public List<ArtistJson> findByName(@Nonnull String title) throws Exception {
+        return api.findByName(title)
                 .execute()
                 .body();
     }

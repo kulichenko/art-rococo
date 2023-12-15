@@ -23,7 +23,7 @@ public interface ArtistApi {
 
 
     @GET("/artist")
-    Call<List<ArtistJson>> findByTitle(@Query("name") String name);
+    Call<List<ArtistJson>> findByName(@Query("name") String name);
 
     @POST("/artist")
     Call<ArtistJson> createArtist(@Body ArtistJson artistJson);

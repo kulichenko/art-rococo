@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class ArtistPage extends BasePage<ArtistPage> {
-    public static final String URL = CFG.baseUrl() + "/artist";
+    public static final String URL = CFG.frontUrl() + "/artist";
 
     private final SelenideElement addArtistBtn = $$("button").find(Condition.text("Добавить художника"));
     private final SelenideElement pageTitle = $$("h2").find(Condition.text("Художники"));

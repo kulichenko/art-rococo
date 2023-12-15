@@ -18,7 +18,7 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class MuseumPage extends BasePage<MuseumPage> {
 
-    public static final String URL = CFG.baseUrl() + "/museum";
+    public static final String URL = CFG.frontUrl() + "/museum";
 
     private final AddMuseumModal addMuseumModal = new AddMuseumModal($(".card.p-4.w-modal.shadow-xl.space-y-4"));
 

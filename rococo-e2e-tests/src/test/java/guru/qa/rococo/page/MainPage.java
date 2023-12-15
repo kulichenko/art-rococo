@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$;
 @Getter
 public class MainPage extends BasePage<MainPage> {
 
-    public static final String URL = CFG.baseUrl();
+    public static final String URL = CFG.frontUrl();
 
     private final Header header = new Header($("#shell-header"));
     private final SelenideElement welcomeTitle = $(".text-3xl.text-center.m-14");

@@ -13,7 +13,7 @@ public interface Config {
 
     int TEN_MB = 10 * 1024 * 1024;
 
-    String baseUrl();
+    String frontUrl();
 
     String databaseAddress();
 

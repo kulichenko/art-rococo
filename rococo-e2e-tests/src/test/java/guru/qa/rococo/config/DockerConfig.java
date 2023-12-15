@@ -5,7 +5,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class DockerConfig implements Config {
 
-    //package access для того, чтобы исключить возможность создания конфига из других покетов
     static final DockerConfig config = new DockerConfig();
 
     private DockerConfig() {
@@ -26,8 +25,8 @@ public class DockerConfig implements Config {
     }
 
     @Override
-    public String baseUrl() {
-        return "http://rococo.dc";
+    public String frontUrl() {
+        return "http://front.rococo.dc";
     }
 
     @Override

@@ -66,7 +66,7 @@ public class ApiLoginExtension implements BeforeEachCallback, AfterTestExecution
             throw new RuntimeException(e);
         }
 
-        Selenide.open(Config.getInstance().baseUrl());
+        Selenide.open(Config.getInstance().frontUrl());
         Selenide.localStorage().setItem("codeChallenge", localStorageContext.getCodeChallenge());
         Selenide.localStorage().setItem("id_token", localStorageContext.getToken());
         Selenide.localStorage().setItem("codeVerifier", localStorageContext.getCodeVerifier());

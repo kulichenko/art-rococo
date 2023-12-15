@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$$;
 public class WelcomePage extends BasePage<WelcomePage> {
 
 
-    public static final String URL = CFG.baseUrl();
+    public static final String URL = CFG.frontUrl();
 
     private final ElementsCollection titles = $$(".text-center.text-2xl.p-6.text-bold");
     private final SelenideElement

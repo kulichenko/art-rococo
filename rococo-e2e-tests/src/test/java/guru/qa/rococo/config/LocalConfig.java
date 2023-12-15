@@ -22,7 +22,7 @@ public class LocalConfig implements Config {
         return "127.0.0.1:5432";
     }
 
-    public String baseUrl() {
+    public String frontUrl() {
         return "http://127.0.0.1:3000";
     }
 

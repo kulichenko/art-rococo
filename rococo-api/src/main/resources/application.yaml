@@ -36,7 +36,7 @@ spring:
           issuer-uri: 'http://auth.rococo.dc:9000'
 
 rococo-front:
-  base-uri: 'http://rococo.dc'
+  base-uri: 'http://front.rococo.dc'
 rococo-userdata:
   base-uri: 'http://userdata.rococo.dc:8087'
 rococo-artist:

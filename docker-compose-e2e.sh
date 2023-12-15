@@ -8,13 +8,8 @@ java --version
 front=""
 front_image=""
 docker_arch=""
-if [[ "$1" = "gql" ]]; then
-  front="./rococo-frontend-gql/";
-  front_image="${IMAGE_PREFIX}/${FRONT_IMAGE_NAME_GQL}-${PROFILE}:latest";
-else
-  front="./rococo-client/";
-  front_image="$IMAGE_PREFIX/${FRONT_IMAGE_NAME}-${PROFILE}:latest";
-fi
+front="./rococo-client/";
+front_image="$IMAGE_PREFIX/${FRONT_IMAGE_NAME}-${PROFILE}:latest";
 
 ARCH="$docker_arch" FRONT_IMAGE="$front_image" PREFIX="${IMAGE_PREFIX}" PROFILE="${PROFILE}" docker-compose -f docker-compose.test.yml down
 
@@ -33,14 +28,14 @@ fi
 
 ARCH=$(uname -m)
 
-bash ./gradlew -Pskipjaxb jibDockerBuild -x :rococo-e-2-e-tests:test
+bash ./gradlew -Pskipjaxb jibDockerBuild -x :rococo-e2e-tests:test
 
 if [ "$ARCH" = "arm64" ] || [ "$ARCH" = "aarch64" ]; then
   docker_arch="linux/arm64"
-  docker build --build-arg DOCKER=arm64v8/eclipse-temurin:19-jdk -t "${IMAGE_PREFIX}/${TEST_IMAGE_NAME}:latest" -f ./rococo-e-2-e-tests/Dockerfile .
+  docker build --build-arg DOCKER=arm64v8/eclipse-temurin:19-jdk -t "${IMAGE_PREFIX}/${TEST_IMAGE_NAME}:latest" -f ./rococo-e2e-tests/Dockerfile .
 else
   docker_arch="linux/amd64"
-  docker build --build-arg DOCKER=eclipse-temurin:19-jdk -t "${IMAGE_PREFIX}/${TEST_IMAGE_NAME}:latest" -f ./rococo-e-2-e-tests/Dockerfile .
+  docker build --build-arg DOCKER=eclipse-temurin:19-jdk -t "${IMAGE_PREFIX}/${TEST_IMAGE_NAME}:latest" -f ./rococo-e2e-tests/Dockerfile .
 fi
 
 cd "$front" || exit

@@ -32,7 +32,7 @@ public class AuthServiceClient extends RestService {
                 "code",
                 "client",
                 "openid",
-                CFG.baseUrl() + "/authorized",
+                CFG.frontUrl() + "/authorized",
                 localStorageContext.getCodeChallenge(),
                 "S256"
         ).execute();
@@ -46,7 +46,7 @@ public class AuthServiceClient extends RestService {
         JsonNode response = authService.token(
                 "Basic " + new String(Base64.getEncoder().encode("client:secret".getBytes(UTF_8))),
                 "client",
-                CFG.baseUrl() + "/authorized",
+                CFG.frontUrl() + "/authorized",
                 "authorization_code",
                 localStorageContext.getCode(),
                 localStorageContext.getCodeVerifier()

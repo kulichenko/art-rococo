@@ -7,7 +7,10 @@ import guru.qa.rococo.jupiter.annotations.GenerateUser;
 import guru.qa.rococo.model.PaintingJson;
 import guru.qa.rococo.page.PaintingPage;
 import io.qameta.allure.AllureId;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,6 +20,8 @@ import static guru.qa.rococo.util.FakerUtils.generateRandomInt;
 import static guru.qa.rococo.util.FakerUtils.generateRandomSentence;
 import static guru.qa.rococo.util.Utils.getRandomFileFromDir;
 
+@Tags({@Tag("WEB"), @Tag("PAINTING")})
+@Epic("PAINTING")
 public class PaintingTests extends BaseWebTest {
     @GenerateMuseum(generatePictures = @GeneratePictures(count = 3))
     @AllureId("14")

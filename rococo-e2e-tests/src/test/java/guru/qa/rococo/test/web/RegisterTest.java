@@ -4,11 +4,16 @@ import com.codeborne.selenide.Selenide;
 import guru.qa.rococo.page.MainPage;
 import guru.qa.rococo.page.RegisterPage;
 import io.qameta.allure.AllureId;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import static guru.qa.rococo.util.FakerUtils.generateRandomUsername;
 
+@Tags({@Tag("WEB"), @Tag("REGISTRATION")})
+@Epic("REGISTRATION")
 public class RegisterTest extends BaseWebTest {
 
     private final String basePassword = "12345";

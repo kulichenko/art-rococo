@@ -11,7 +11,10 @@ import guru.qa.rococo.page.ArtistProfilePage;
 import guru.qa.rococo.util.FakerUtils;
 import guru.qa.rococo.util.Utils;
 import io.qameta.allure.AllureId;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -22,6 +25,8 @@ import static guru.qa.rococo.util.FakerUtils.generateRandomName;
 import static guru.qa.rococo.util.FakerUtils.generateRandomSentence;
 import static guru.qa.rococo.util.Utils.getRandomFileFromDir;
 
+@Tags({@Tag("WEB"), @Tag("ARTIST")})
+@Epic("ARTIST")
 public class ArtistTests extends BaseWebTest {
 
     @GenerateMuseum(generatePictures = @GeneratePictures(count = 2))

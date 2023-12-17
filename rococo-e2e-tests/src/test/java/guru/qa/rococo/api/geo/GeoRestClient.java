@@ -1,7 +1,7 @@
 package guru.qa.rococo.api.geo;
 
 import guru.qa.rococo.api.RestService;
-import guru.qa.rococo.model.GeoJson;
+import guru.qa.rococo.model.CountryJson;
 import io.qameta.allure.Step;
 
 import javax.annotation.Nonnull;
@@ -17,7 +17,7 @@ public class GeoRestClient extends RestService {
 
     @Step("Send REST GET('/geo') request to geo service")
     @Nullable
-    public List<GeoJson> findAll() throws Exception {
+    public List<CountryJson> findAll() throws Exception {
         return api.findAll()
                 .execute()
                 .body();
@@ -25,7 +25,7 @@ public class GeoRestClient extends RestService {
 
     @Step("Send REST POST ('/geo/findByIds') request to geo service")
     @Nullable
-    public List<GeoJson> findByIds(@Nonnull List<String> ids) throws Exception {
+    public List<CountryJson> findByIds(@Nonnull List<String> ids) throws Exception {
         return api.findByIds(ids)
                 .execute()
                 .body();

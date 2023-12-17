@@ -4,7 +4,10 @@ import guru.qa.rococo.api.artist.ArtistRestClient;
 import guru.qa.rococo.jupiter.annotations.GenerateArtist;
 import guru.qa.rococo.model.ArtistJson;
 import io.qameta.allure.AllureId;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -14,9 +17,12 @@ import static guru.qa.rococo.util.FakerUtils.generateRandomInt;
 import static guru.qa.rococo.util.FakerUtils.generateRandomName;
 import static guru.qa.rococo.util.FakerUtils.generateRandomSentence;
 import static guru.qa.rococo.util.Utils.getRandomImage;
+import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tags({@Tag("REST"), @Tag("ARTIST")})
+@Epic("ARTIST")
 public class ArtistRestTests extends BaseRestTests {
     private final ArtistRestClient restClient = new ArtistRestClient();
 
@@ -26,7 +32,8 @@ public class ArtistRestTests extends BaseRestTests {
     @GenerateArtist(count = 5)
     void artistsQtyShouldBeEqOrGrThanAdded(List<ArtistJson> artistJsons) throws Exception {
         List<ArtistJson> artists = restClient.findAll();
-        assertTrue(artists.size() >= artistJsons.size(), "artist's qty less then added");
+        step("Check that artists quantity equals or greater than generated", () ->
+                assertTrue(artists.size() >= artistJsons.size(), "artist's qty less then added"));
     }
 
     @Test
@@ -36,9 +43,7 @@ public class ArtistRestTests extends BaseRestTests {
     void findByIdAddedArtistTest(List<ArtistJson> artistJsons) throws Exception {
         for (var artist : artistJsons) {
             ArtistJson artistById = restClient.findById(artist.getId());
-            assertEquals(artist.getName(), artistById.getName(), "names not equals");
-            assertEquals(artist.getBiography(), artistById.getBiography(), "biographies not equals");
-            assertEquals(artist.getPhoto(), artistById.getPhoto(), "photos not equals");
+            compareArtistJsons(artist, artistById);
         }
     }
 
@@ -49,9 +54,12 @@ public class ArtistRestTests extends BaseRestTests {
     void findByNameAddedArtistTest(List<ArtistJson> artistJsons) throws Exception {
         for (var artist : artistJsons) {
             ArtistJson artistByName = restClient.findByName(artist.getName()).stream().findFirst().get();
-            assertEquals(artist.getId(), artistByName.getId(), "IDs not equals");
-            assertEquals(artist.getBiography(), artistByName.getBiography(), "biographies not equals");
-            assertEquals(artist.getPhoto(), artistByName.getPhoto(), "photos not equals");
+            step("Check artist's id", () ->
+                    assertEquals(artist.getId(), artistByName.getId(), "IDs not equals"));
+            step("Check artist's biography", () ->
+                    assertEquals(artist.getBiography(), artistByName.getBiography(), "biographies not equals"));
+            step("Check artist's photo", () ->
+                    assertEquals(artist.getPhoto(), artistByName.getPhoto(), "photos not equals"));
         }
     }
 
@@ -63,11 +71,8 @@ public class ArtistRestTests extends BaseRestTests {
         artistJson.setName(generateRandomName());
         artistJson.setBiography(generateRandomSentence(generateRandomInt(2, 4)));
         artistJson.setPhoto(getRandomImage(IMAGES));
-        ArtistJson artist = restClient.createArtist(artistJson);
-        ArtistJson artistById = restClient.findById(artist.getId());
-        assertEquals(artist.getName(), artistById.getName(), "names not equals");
-        assertEquals(artist.getBiography(), artistById.getBiography(), "biographies not equals");
-        assertEquals(artist.getPhoto(), artistById.getPhoto(), "photos not equals");
+        ArtistJson createdArtist = restClient.createArtist(artistJson);
+        compareArtistJsons(createdArtist, artistJson);
     }
 
     @Test
@@ -81,13 +86,20 @@ public class ArtistRestTests extends BaseRestTests {
         String newBiography = generateRandomSentence(generateRandomInt(2, 3));
         artistToChanging.setName(newName);
         artistToChanging.setBiography(newBiography);
-        ArtistJson artistJson = restClient.editArtist(artistToChanging);
+        ArtistJson artistJsonAfterEditing = restClient.editArtist(artistToChanging);
+        step("Check artist's id", () ->
+                assertEquals(artistJsonAfterEditing.getId(), artistToChanging.getId(), "IDs not equals"));
+        compareArtistJsons(artistJsonAfterEditing, artistToChanging);
 
-        assertEquals(artistJson.getId(), artistToChanging.getId(), "IDs not equals");
-        assertEquals(artistJson.getName(), artistToChanging.getName(), "names not equals");
-        assertEquals(artistJson.getBiography(), artistToChanging.getBiography(), "biographies not equals");
-        assertEquals(artistJson.getPhoto(), artistToChanging.getPhoto(), "photos not equals");
+    }
 
+    private static void compareArtistJsons(ArtistJson leftArtistJson, ArtistJson rightArtistJson) {
+        step("Check artist's name", () ->
+                assertEquals(leftArtistJson.getName(), rightArtistJson.getName(), "names not equals"));
+        step("Check artist's biography", () ->
+                assertEquals(leftArtistJson.getBiography(), rightArtistJson.getBiography(), "biographies not equals"));
+        step("Check artist's photo", () ->
+                assertEquals(leftArtistJson.getPhoto(), rightArtistJson.getPhoto(), "photos not equals"));
     }
 
 

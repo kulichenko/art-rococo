@@ -9,7 +9,10 @@ import guru.qa.rococo.model.PaintingJson;
 import guru.qa.rococo.page.MuseumPage;
 import guru.qa.rococo.util.Utils;
 import io.qameta.allure.AllureId;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -20,6 +23,8 @@ import static guru.qa.rococo.util.FakerUtils.generateRandomCity;
 import static guru.qa.rococo.util.FakerUtils.generateRandomInt;
 import static guru.qa.rococo.util.FakerUtils.generateRandomSentence;
 
+@Tags({@Tag("WEB"), @Tag("MUSEUM")})
+@Epic("MUSEUM")
 public class MuseumsTests extends BaseWebTest {
 
 

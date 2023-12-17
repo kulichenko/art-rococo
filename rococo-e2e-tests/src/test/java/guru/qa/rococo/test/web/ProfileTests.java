@@ -6,13 +6,18 @@ import guru.qa.rococo.jupiter.annotations.GeneratedUser;
 import guru.qa.rococo.model.UserJson;
 import guru.qa.rococo.page.MainPage;
 import io.qameta.allure.AllureId;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.open;
 import static guru.qa.rococo.util.FakerUtils.generateRandomName;
 import static guru.qa.rococo.util.FakerUtils.generateRandomSurname;
 
+@Tags({@Tag("WEB"), @Tag("PROFILE")})
+@Epic("PROFILE")
 public class ProfileTests extends BaseWebTest {
 
     @ApiLogin(user = @GenerateUser())

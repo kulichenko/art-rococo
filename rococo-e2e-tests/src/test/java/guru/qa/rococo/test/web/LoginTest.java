@@ -7,10 +7,14 @@ import guru.qa.rococo.page.LoginPage;
 import guru.qa.rococo.page.MainPage;
 import guru.qa.rococo.page.WelcomePage;
 import io.qameta.allure.AllureId;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
-
+@Tags({@Tag("WEB"), @Tag("LOGIN")})
+@Epic("LOGIN")
 public class LoginTest extends BaseWebTest {
 
     @AddUserToDB

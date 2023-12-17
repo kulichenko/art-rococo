@@ -83,7 +83,7 @@ public class ArtistRestTests extends BaseRestTests {
         artistToChanging.setBiography(newBiography);
         ArtistJson artistJson = restClient.editArtist(artistToChanging);
 
-        assertEquals(artistJson.getId(), artistToChanging.getId(), "IDSs not equals");
+        assertEquals(artistJson.getId(), artistToChanging.getId(), "IDs not equals");
         assertEquals(artistJson.getName(), artistToChanging.getName(), "names not equals");
         assertEquals(artistJson.getBiography(), artistToChanging.getBiography(), "biographies not equals");
         assertEquals(artistJson.getPhoto(), artistToChanging.getPhoto(), "photos not equals");

@@ -109,7 +109,7 @@ public class MuseumRestTests extends BaseRestTests {
 
     }
 
-    private static void compareMuseumJsons(MuseumJson museum, MuseumJson museumForChanging) {
+    private void compareMuseumJsons(MuseumJson museum, MuseumJson museumForChanging) {
         step("Check museum id", () ->
                 assertEquals(museum.getId(), museumForChanging.getId(), "IDs are not equals"));
         step("Check museum title", () ->

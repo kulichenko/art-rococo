@@ -93,7 +93,7 @@ public class ArtistRestTests extends BaseRestTests {
 
     }
 
-    private static void compareArtistJsons(ArtistJson leftArtistJson, ArtistJson rightArtistJson) {
+    private void compareArtistJsons(ArtistJson leftArtistJson, ArtistJson rightArtistJson) {
         step("Check artist's name", () ->
                 assertEquals(leftArtistJson.getName(), rightArtistJson.getName(), "names not equals"));
         step("Check artist's biography", () ->

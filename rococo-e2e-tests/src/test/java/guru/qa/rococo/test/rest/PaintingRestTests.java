@@ -45,16 +45,7 @@ public class PaintingRestTests extends BaseRestTests {
     void findByIdPaintingTest(List<PaintingJson> paintingJsons) throws Exception {
         for (var painting : paintingJsons) {
             PaintingJson paintingById = restClient.findById(painting.getId());
-            step("Check painting title", () ->
-                    assertEquals(painting.getTitle(), paintingById.getTitle(), "titles not equals"));
-            step("Check painting description", () ->
-                    assertEquals(painting.getDescription(), paintingById.getDescription(), "descriptions are not equals"));
-            step("Check painting content", () ->
-                    assertEquals(painting.getContent(), paintingById.getContent(), "contents are not equals"));
-            step("Check painting artist id", () ->
-                    assertEquals(painting.getArtistId(), paintingById.getArtistId(), "artists are not equals"));
-            step("Check painting museum id", () ->
-                    assertEquals(painting.getMuseumId(), paintingById.getMuseumId(), "museums are not equals"));
+            comparePaintingJsons(painting, paintingById);
         }
     }
 
@@ -87,16 +78,7 @@ public class PaintingRestTests extends BaseRestTests {
             PaintingJson paintingByAuthor = restClient.findByAuthor(painting.getArtistId()).get(0);
             step("Check painting id", () ->
                     assertEquals(painting.getId(), paintingByAuthor.getId(), "IDs are not equals"));
-            step("Check painting title", () ->
-                    assertEquals(painting.getTitle(), paintingByAuthor.getTitle(), "titles not equals"));
-            step("Check painting description", () ->
-                    assertEquals(painting.getDescription(), paintingByAuthor.getDescription(), "descriptions are not equals"));
-            step("Check painting content", () ->
-                    assertEquals(painting.getContent(), paintingByAuthor.getContent(), "contents are not equals"));
-            step("Check painting artist id", () ->
-                    assertEquals(painting.getArtistId(), paintingByAuthor.getArtistId(), "artists are not equals"));
-            step("Check painting museum id", () ->
-                    assertEquals(painting.getMuseumId(), paintingByAuthor.getMuseumId(), "museums are not equals"));
+            comparePaintingJsons(painting, paintingByAuthor);
         }
     }
 
@@ -114,16 +96,7 @@ public class PaintingRestTests extends BaseRestTests {
         paintingJson.setMuseumId(museumAndArtistForPainting.getMuseumId());
         PaintingJson painting = restClient.createPainting(paintingJson);
         PaintingJson paintingById = restClient.findById(painting.getId());
-        step("Check painting title", () ->
-                assertEquals(painting.getTitle(), paintingById.getTitle(), "titles not equals"));
-        step("Check painting description", () ->
-                assertEquals(painting.getDescription(), paintingById.getDescription(), "descriptions are not equals"));
-        step("Check painting content", () ->
-                assertEquals(painting.getContent(), paintingById.getContent(), "contents are not equals"));
-        step("Check painting artist id", () ->
-                assertEquals(painting.getArtistId(), paintingById.getArtistId(), "artists are not equals"));
-        step("Check painting museum id", () ->
-                assertEquals(painting.getMuseumId(), paintingById.getMuseumId(), "museums are not equals"));
+        comparePaintingJsons(paintingJson, paintingById);
     }
 
     @Test
@@ -141,17 +114,21 @@ public class PaintingRestTests extends BaseRestTests {
         PaintingJson paintingAfterEdit = restClient.editPainting(paintingToChanging);
         step("Check painting id", () ->
                 assertEquals(paintingAfterEdit.getId(), paintingToChanging.getId(), "IDs not equals"));
-        step("Check painting title", () ->
-                assertEquals(paintingAfterEdit.getTitle(), paintingToChanging.getTitle(), "titles not equals"));
-        step("Check painting description", () ->
-                assertEquals(paintingAfterEdit.getDescription(), paintingToChanging.getDescription(), "descriptions are not equals"));
-        step("Check painting content", () ->
-                assertEquals(paintingAfterEdit.getContent(), paintingToChanging.getContent(), "contents are not equals"));
-        step("Check painting artist id", () ->
-                assertEquals(paintingAfterEdit.getArtistId(), paintingToChanging.getArtistId(), "artists are not equals"));
-        step("Check painting museum id", () ->
-                assertEquals(paintingAfterEdit.getMuseumId(), paintingToChanging.getMuseumId(), "museums are not equals"));
+        comparePaintingJsons(paintingAfterEdit, paintingToChanging);
 
+    }
+
+    private void comparePaintingJsons(PaintingJson leftPaintingJson, PaintingJson rightPaintingJson) {
+        step("Check painting title", () ->
+                assertEquals(leftPaintingJson.getTitle(), rightPaintingJson.getTitle(), "titles not equals"));
+        step("Check painting description", () ->
+                assertEquals(leftPaintingJson.getDescription(), rightPaintingJson.getDescription(), "descriptions are not equals"));
+        step("Check painting content", () ->
+                assertEquals(leftPaintingJson.getContent(), rightPaintingJson.getContent(), "contents are not equals"));
+        step("Check painting artist id", () ->
+                assertEquals(leftPaintingJson.getArtistId(), rightPaintingJson.getArtistId(), "artists are not equals"));
+        step("Check painting museum id", () ->
+                assertEquals(leftPaintingJson.getMuseumId(), rightPaintingJson.getMuseumId(), "museums are not equals"));
     }
 
 

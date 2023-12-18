@@ -36,32 +36,32 @@ public class DockerConfig implements Config {
 
     @Override
     public String geoUrl() {
-        return "http://geo.rococo:8083";
+        return "http://geo.rococo.dc:8083";
     }
 
     @Override
     public String userDataUrl() {
-        return "http://userdata.rococo:8087";
+        return "http://userdata.rococo.dc:8087";
     }
 
     @Override
     public String artistUrl() {
-        return "http://artist.rococo:8086";
+        return "http://artist.rococo.dc:8086";
     }
 
     @Override
     public String museumUrl() {
-        return "http://museum.rococo:8085";
+        return "http://museum.rococo.dc:8085";
     }
 
     @Override
     public String picturesUrl() {
-        return "http://pictures.rococo:8084";
+        return "http://pictures.rococo.dc:8084";
     }
 
     @Override
     public String apiUrl() {
-        return "http://api.rococo:8080";
+        return "http://api.rococo.dc:8080";
     }
 
     @Override

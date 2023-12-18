@@ -81,6 +81,7 @@ tasks.withType(JavaCompile) {
 }
 
 test {
+    useJUnitPlatform()
     options {
         systemProperties(System.getProperties())
     }

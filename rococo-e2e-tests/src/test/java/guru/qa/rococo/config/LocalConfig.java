@@ -11,8 +11,6 @@ public class LocalConfig implements Config {
     }
 
     static {
-        Configuration.browser = "firefox";
-        Configuration.browserBinary = "C:\\Program Files\\Firefox 115.3\\firefox.exe";
         Configuration.browserSize = "1980x1024";
         Configuration.timeout = 10000;
     }

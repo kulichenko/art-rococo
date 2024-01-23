@@ -7,8 +7,6 @@ server:
 spring:
   application:
     name: rococo-geo
-  mvc:
-    log-request-details: true
   datasource:
     hikari:
       connection-timeout: 20000
@@ -22,10 +20,8 @@ spring:
     baseline-on-migrate: true
     baseline-version: 0
     schemas: public
-    locations: classpath:db/migration/rococo-geo
+    locations: classpath:resources/db/migration
   jpa:
-    hibernate:
-      ddl-auto: none
     properties:
       hibernate:
         jdbc:
@@ -34,7 +30,6 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
     generate-ddl: true
-    open-in-view: false
 
 logging:
   level:
